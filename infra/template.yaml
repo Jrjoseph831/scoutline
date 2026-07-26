@@ -1,0 +1,185 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Scoutline source monitoring and source-gated public advisory API
+
+Parameters:
+  AllowedOrigin:
+    Type: String
+    Default: https://proofline-operations.falajoe.chatgpt.site
+
+Globals:
+  Function:
+    Runtime: python3.12
+    Architectures: [arm64]
+    Timeout: 30
+    MemorySize: 256
+    Environment:
+      Variables:
+        SCAMS_TABLE: !Ref ScamsTable
+        EVIDENCE_TABLE: !Ref EvidenceTable
+        SOURCE_CHECKS_TABLE: !Ref SourceChecksTable
+        RUNS_TABLE: !Ref IngestionRunsTable
+
+Resources:
+  ScamsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: scoutline-scams
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: scam_id
+          AttributeType: S
+        - AttributeName: publication_state
+          AttributeType: S
+        - AttributeName: published_at
+          AttributeType: S
+      KeySchema:
+        - AttributeName: scam_id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: publication-date-index
+          KeySchema:
+            - AttributeName: publication_state
+              KeyType: HASH
+            - AttributeName: published_at
+              KeyType: RANGE
+          Projection: {ProjectionType: ALL}
+      PointInTimeRecoverySpecification: {PointInTimeRecoveryEnabled: true}
+      SSESpecification: {SSEEnabled: true}
+
+  EvidenceTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: scoutline-evidence
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: scam_id
+          AttributeType: S
+        - AttributeName: evidence_id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: scam_id
+          KeyType: HASH
+        - AttributeName: evidence_id
+          KeyType: RANGE
+      PointInTimeRecoverySpecification: {PointInTimeRecoveryEnabled: true}
+      SSESpecification: {SSEEnabled: true}
+
+  SourceChecksTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: scoutline-source-checks
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: source_id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: source_id
+          KeyType: HASH
+      PointInTimeRecoverySpecification: {PointInTimeRecoveryEnabled: true}
+      SSESpecification: {SSEEnabled: true}
+
+  IngestionRunsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: scoutline-ingestion-runs
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: run_id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: run_id
+          KeyType: HASH
+      TimeToLiveSpecification:
+        AttributeName: expires_at
+        Enabled: true
+      SSESpecification: {SSEEnabled: true}
+
+  SourceCheckDeadLetterQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: scoutline-source-check-dlq
+      MessageRetentionPeriod: 1209600
+      SqsManagedSseEnabled: true
+
+  SourceCheckFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: scoutline-source-check
+      CodeUri: ../src/source_check/
+      Handler: app.handler
+      Description: Fetches approved source indexes and records freshness and hashes; never publishes claims.
+      Policies:
+        - DynamoDBCrudPolicy: {TableName: !Ref SourceChecksTable}
+        - DynamoDBCrudPolicy: {TableName: !Ref IngestionRunsTable}
+      DeadLetterQueue:
+        Type: SQS
+        TargetArn: !GetAtt SourceCheckDeadLetterQueue.Arn
+      Events:
+        EverySixHours:
+          Type: ScheduleV2
+          Properties:
+            Name: scoutline-source-check-every-six-hours
+            ScheduleExpression: rate(6 hours)
+            FlexibleTimeWindow: {Mode: OFF}
+            RetryPolicy:
+              MaximumRetryAttempts: 2
+              MaximumEventAgeInSeconds: 3600
+
+  PublicApiFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: scoutline-public-api
+      CodeUri: ../src/api/
+      Handler: app.handler
+      Description: Returns published advisories only when qualifying evidence exists.
+      Policies:
+        - DynamoDBReadPolicy: {TableName: !Ref ScamsTable}
+        - DynamoDBReadPolicy: {TableName: !Ref EvidenceTable}
+      Events:
+        GetScams:
+          Type: HttpApi
+          Properties:
+            Path: /scams
+            Method: GET
+            ApiId: !Ref PublicApi
+        GetHealth:
+          Type: HttpApi
+          Properties:
+            Path: /health
+            Method: GET
+            ApiId: !Ref PublicApi
+
+  PublicApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      StageName: prod
+      CorsConfiguration:
+        AllowOrigins: [!Ref AllowedOrigin]
+        AllowMethods: [GET]
+        AllowHeaders: [content-type]
+        MaxAge: 600
+
+  SourceCheckErrors:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: scoutline-source-check-errors
+      Namespace: AWS/Lambda
+      MetricName: Errors
+      Dimensions:
+        - Name: FunctionName
+          Value: !Ref SourceCheckFunction
+      Statistic: Sum
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 1
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+
+Outputs:
+  ApiUrl:
+    Value: !Sub https://${PublicApi}.execute-api.${AWS::Region}.amazonaws.com/prod
+  ScamsTableName:
+    Value: !Ref ScamsTable
+  EvidenceTableName:
+    Value: !Ref EvidenceTable
