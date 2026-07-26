@@ -1,0 +1,56 @@
+name: Deploy Scoutline backend
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - infra/**
+      - src/**
+      - config/**
+      - .github/workflows/deploy-aws.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: scoutline-backend-production
+  cancel-in-progress: false
+
+jobs:
+  validate-and-deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: aws-actions/setup-sam@v2
+
+      - name: Configure AWS credentials through OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::243413538293:role/ScoutlineGitHubDeployRole
+          aws-region: us-east-1
+          role-session-name: scoutline-github-deploy
+
+      - name: Validate template
+        run: sam validate --lint --template-file infra/template.yaml
+
+      - name: Build
+        run: sam build --template-file infra/template.yaml
+
+      - name: Deploy
+        run: >-
+          sam deploy
+          --stack-name scoutline-backend
+          --region us-east-1
+          --resolve-s3
+          --capabilities CAPABILITY_IAM
+          --role-arn arn:aws:iam::243413538293:role/ScoutlineCloudFormationExecutionRole
+          --no-confirm-changeset
+          --no-fail-on-empty-changeset
+          --parameter-overrides AllowedOrigin=https://proofline-operations.falajoe.chatgpt.site
+
+      - name: Show outputs
+        run: aws cloudformation describe-stacks --stack-name scoutline-backend --query 'Stacks[0].Outputs' --output table
