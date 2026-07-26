@@ -1,0 +1,24 @@
+{
+  "policyVersion": 1,
+  "publicationRules": {
+    "tier1": "Eligible for automatic publication only when the item is scam-specific, contains a canonical HTTPS source URL and publication date, and passes schema and duplicate checks.",
+    "tier2": "Eligible only when the geography is explicit in the source and the issuing organization is verified.",
+    "tier3": "Signal only. Never publish without corroboration from a tier 1 or tier 2 source.",
+    "requiredFields": ["title", "summary", "sourceUrl", "publisher", "publishedAt", "contentHash", "scope"],
+    "prohibited": ["anonymous auto-publication", "inferred local geography", "invented report counts", "unsourced trend percentages"]
+  },
+  "sources": [
+    {"id":"ftc-consumer-alerts","publisher":"Federal Trade Commission","tier":1,"scope":"national","url":"https://consumer.ftc.gov/consumer-alerts","adapter":"html-index","schedule":"rate(6 hours)"},
+    {"id":"fbi-ic3-psa","publisher":"FBI Internet Crime Complaint Center","tier":1,"scope":"national","url":"https://www.ic3.gov/PSA","adapter":"html-index","schedule":"rate(6 hours)"},
+    {"id":"uspis-scam-articles","publisher":"U.S. Postal Inspection Service","tier":1,"scope":"national","url":"https://www.uspis.gov/news?filters=scam-article","adapter":"html-index","schedule":"rate(12 hours)"},
+    {"id":"cisa-alerts","publisher":"Cybersecurity and Infrastructure Security Agency","tier":1,"scope":"national","url":"https://www.cisa.gov/news-events/cybersecurity-advisories","adapter":"html-index","schedule":"rate(12 hours)"},
+    {"id":"irs-tax-scams","publisher":"Internal Revenue Service","tier":1,"scope":"national","url":"https://www.irs.gov/newsroom/tax-scams-consumer-alerts","adapter":"html-index","schedule":"rate(12 hours)"},
+    {"id":"ssa-oig-scam-alerts","publisher":"Social Security Administration Office of the Inspector General","tier":1,"scope":"national","url":"https://oig.ssa.gov/scam-awareness/scam-alert/","adapter":"html-index","schedule":"rate(12 hours)"},
+    {"id":"hhs-oig-fraud-alerts","publisher":"U.S. Department of Health and Human Services Office of Inspector General","tier":1,"scope":"national","url":"https://oig.hhs.gov/fraud/consumer-alerts/","adapter":"html-index","schedule":"rate(12 hours)"},
+    {"id":"sec-investor-alerts","publisher":"U.S. Securities and Exchange Commission","tier":1,"scope":"national","url":"https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-alerts","adapter":"html-index","schedule":"rate(12 hours)"},
+    {"id":"cfpb-consumer-advisories","publisher":"Consumer Financial Protection Bureau","tier":1,"scope":"national","url":"https://www.consumerfinance.gov/consumer-tools/fraud/","adapter":"html-index","schedule":"rate(24 hours)"},
+    {"id":"va-ag-consumer-alerts","publisher":"Office of the Attorney General of Virginia","tier":2,"scope":"state","state":"VA","url":"https://www.oag.state.va.us/consumer-protection/consumer-alerts","adapter":"html-index","schedule":"rate(12 hours)"},
+    {"id":"ny-ag-consumer-alerts","publisher":"Office of the New York State Attorney General","tier":2,"scope":"state","state":"NY","url":"https://ag.ny.gov/resources/individuals/consumer-issues/scams","adapter":"html-index","schedule":"rate(12 hours)"},
+    {"id":"ca-ag-consumer-alerts","publisher":"California Department of Justice","tier":2,"scope":"state","state":"CA","url":"https://oag.ca.gov/consumers/general/scams","adapter":"html-index","schedule":"rate(12 hours)"}
+  ]
+}
