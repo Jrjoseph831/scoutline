@@ -26,8 +26,8 @@ jobs:
       - name: Recover failed initial stack
         run: |
           STATUS=$(aws cloudformation describe-stacks --stack-name scoutline-production --region us-east-1 --query 'Stacks[0].StackStatus' --output text 2>/dev/null || echo MISSING)
-          if [ "$STATUS" = "ROLLBACK_COMPLETE" ]; then
-            echo "Deleting rolled-back initial stack before clean recreation"
+          if [ "$STATUS" = "ROLLBACK_COMPLETE" ] || [ "$STATUS" = "ROLLBACK_FAILED" ]; then
+            echo "Deleting failed initial stack before clean recreation"
             aws cloudformation delete-stack --stack-name scoutline-production --region us-east-1
             aws cloudformation wait stack-delete-complete --stack-name scoutline-production --region us-east-1
           fi
