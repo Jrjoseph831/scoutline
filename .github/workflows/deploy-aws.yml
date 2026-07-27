@@ -25,13 +25,20 @@ jobs:
           aws-region: us-east-1
       - name: Deploy AWS infrastructure
         run: |
-          aws cloudformation deploy \
+          if ! aws cloudformation deploy \
             --template-file aws-hosting/template.yml \
             --stack-name scoutline-production \
             --region us-east-1 \
             --role-arn arn:aws:iam::243413538293:role/ScoutlineCloudFormationExecutionRole \
             --capabilities CAPABILITY_NAMED_IAM \
-            --no-fail-on-empty-changeset
+            --no-fail-on-empty-changeset; then
+            aws cloudformation describe-stack-events \
+              --stack-name scoutline-production \
+              --region us-east-1 \
+              --query "StackEvents[?ResourceStatus=='CREATE_FAILED' || ResourceStatus=='UPDATE_FAILED'].[Timestamp,LogicalResourceId,ResourceType,ResourceStatusReason]" \
+              --output table || true
+            exit 1
+          fi
       - name: Read deployment outputs
         run: |
           API_URL=$(aws cloudformation describe-stacks --stack-name scoutline-production --region us-east-1 --query "Stacks[0].Outputs[?OutputKey=='ApiUrl'].OutputValue" --output text)
