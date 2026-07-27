@@ -161,6 +161,27 @@ Resources:
       EnableAutoBuild: false
       Stage: PRODUCTION
 
+  DeploymentRuntimePolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: ScoutlineDeploymentRuntime
+      Roles:
+        - ScoutlineGitHubDeployRole
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: SeedVerifiedScamData
+            Effect: Allow
+            Action: dynamodb:BatchWriteItem
+            Resource: !GetAtt ScamTable.Arn
+          - Sid: PublishScoutlineToAmplify
+            Effect: Allow
+            Action:
+              - amplify:CreateDeployment
+              - amplify:StartDeployment
+              - amplify:GetJob
+            Resource: !Sub arn:${AWS::Partition}:amplify:${AWS::Region}:${AWS::AccountId}:apps/${AmplifyApp.AppId}*
+
 Outputs:
   ApiUrl:
     Value: !Sub https://${ScamApi}.execute-api.${AWS::Region}.${AWS::URLSuffix}
