@@ -1,0 +1,168 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Scoutline public site, API, and verified scam database
+
+Resources:
+  ScamTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: scoutline-scams
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: slug
+          AttributeType: S
+      KeySchema:
+        - AttributeName: slug
+          KeyType: HASH
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+      SSESpecification:
+        SSEEnabled: true
+
+  ApiRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: ReadScoutlineScams
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: [dynamodb:GetItem, dynamodb:Scan]
+                Resource: !GetAtt ScamTable.Arn
+
+  ScamApiFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: scoutline-public-api
+      Runtime: nodejs22.x
+      Handler: index.handler
+      Role: !GetAtt ApiRole.Arn
+      Timeout: 10
+      MemorySize: 256
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref ScamTable
+      Code:
+        ZipFile: |
+          const { DynamoDBClient, ScanCommand, GetItemCommand } = require("@aws-sdk/client-dynamodb");
+          const { unmarshall } = require("@aws-sdk/util-dynamodb");
+          const db = new DynamoDBClient({});
+          const reply = (statusCode, body) => ({
+            statusCode,
+            headers: {
+              "content-type": "application/json",
+              "access-control-allow-origin": "*",
+              "cache-control": "public, max-age=300"
+            },
+            body: JSON.stringify(body)
+          });
+          exports.handler = async (event) => {
+            try {
+              const slug = event.pathParameters && event.pathParameters.slug;
+              if (slug) {
+                const result = await db.send(new GetItemCommand({
+                  TableName: process.env.TABLE_NAME,
+                  Key: { slug: { S: slug } }
+                }));
+                return result.Item ? reply(200, { item: unmarshall(result.Item) }) : reply(404, { error: "Not found" });
+              }
+              const query = ((event.queryStringParameters || {}).q || "").toLowerCase().slice(0, 120);
+              const category = ((event.queryStringParameters || {}).category || "all").toLowerCase();
+              const result = await db.send(new ScanCommand({ TableName: process.env.TABLE_NAME }));
+              const items = (result.Items || []).map(unmarshall).filter((item) => {
+                const haystack = `${item.title} ${item.summary} ${item.category} ${item.impersonates || ""}`.toLowerCase();
+                return (!query || haystack.includes(query)) && (category === "all" || item.category === category);
+              }).sort((a, b) => String(b.lastSeen).localeCompare(String(a.lastSeen)));
+              return reply(200, { items, meta: { count: items.length, dataStatus: "source-backed", generatedAt: new Date().toISOString() } });
+            } catch (error) {
+              console.error(error);
+              return reply(500, { items: [], error: "Service unavailable" });
+            }
+          };
+
+  ScamApi:
+    Type: AWS::ApiGatewayV2::Api
+    Properties:
+      Name: scoutline-public-api
+      ProtocolType: HTTP
+      CorsConfiguration:
+        AllowOrigins: ["*"]
+        AllowMethods: [GET, OPTIONS]
+        AllowHeaders: [content-type]
+
+  ApiIntegration:
+    Type: AWS::ApiGatewayV2::Integration
+    Properties:
+      ApiId: !Ref ScamApi
+      IntegrationType: AWS_PROXY
+      IntegrationUri: !GetAtt ScamApiFunction.Arn
+      PayloadFormatVersion: "2.0"
+
+  ListRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref ScamApi
+      RouteKey: GET /scams
+      Target: !Sub integrations/${ApiIntegration}
+
+  DetailRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref ScamApi
+      RouteKey: GET /scams/{slug}
+      Target: !Sub integrations/${ApiIntegration}
+
+  ApiStage:
+    Type: AWS::ApiGatewayV2::Stage
+    Properties:
+      ApiId: !Ref ScamApi
+      StageName: "$default"
+      AutoDeploy: true
+
+  ApiPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref ScamApiFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub arn:${AWS::Partition}:execute-api:${AWS::Region}:${AWS::AccountId}:${ScamApi}/*
+
+  AmplifyApp:
+    Type: AWS::Amplify::App
+    Properties:
+      Name: scoutline
+      Platform: WEB
+      EnableBranchAutoDeletion: true
+      CustomRules:
+        - { Source: /library, Target: /library/index.html, Status: "200" }
+        - { Source: /toolkit, Target: /toolkit/index.html, Status: "200" }
+        - { Source: /how-it-works, Target: /how-it-works/index.html, Status: "200" }
+        - { Source: /organizations, Target: /organizations/index.html, Status: "200" }
+        - { Source: /support, Target: /support/index.html, Status: "200" }
+
+  AmplifyBranch:
+    Type: AWS::Amplify::Branch
+    Properties:
+      AppId: !GetAtt AmplifyApp.AppId
+      BranchName: main
+      EnableAutoBuild: false
+      Stage: PRODUCTION
+
+Outputs:
+  ApiUrl:
+    Value: !Sub https://${ScamApi}.execute-api.${AWS::Region}.${AWS::URLSuffix}
+  TableName:
+    Value: !Ref ScamTable
+  AmplifyAppId:
+    Value: !GetAtt AmplifyApp.AppId
+  SiteUrl:
+    Value: !Sub https://main.${AmplifyApp.DefaultDomain}
