@@ -1,0 +1,1040 @@
+[
+  {
+    "slug": "ftc-restricted-payment-methods-2026",
+    "title": "Payment-method pressure is a scam warning",
+    "summary": "The FTC warns that unexpected demands for bank transfers, wire transfers, cryptocurrency, payment apps, or gift cards are strong scam indicators.",
+    "category": "payment",
+    "channels": [
+      "phone",
+      "sms",
+      "email",
+      "social"
+    ],
+    "impersonates": "A government agency, business, prize administrator, or other trusted organization",
+    "warningSigns": [
+      "Unexpected contact demanding payment",
+      "Only one hard-to-reverse payment method is accepted",
+      "Pressure to act before you can verify"
+    ],
+    "actionSteps": [
+      "Do not send the payment",
+      "Search the person or organization independently",
+      "Use a credit card when appropriate",
+      "Contact the payment company immediately if money was sent"
+    ],
+    "responseScript": "I will verify this independently before making any payment.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2026-07-22",
+    "lastSeen": "2026-07-22",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-26T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Federal Trade Commission",
+    "sourceUrl": "https://consumer.ftc.gov/consumer-alerts/2026/07/way-spot-scams-how-someone-asks-you-pay",
+    "sourcePublishedAt": "2026-07-22T12:00:00Z"
+  },
+  {
+    "slug": "fbi-ic3-recovery-impersonation-2026",
+    "title": "Fake IC3 recovery agent",
+    "summary": "The FBI warns that scammers impersonate IC3 or FBI personnel and promise to recover money already lost to fraud.",
+    "category": "government",
+    "channels": [
+      "phone",
+      "email",
+      "social",
+      "messaging",
+      "web"
+    ],
+    "impersonates": "The FBI or Internet Crime Complaint Center",
+    "warningSigns": [
+      "Claims recovered funds are waiting",
+      "Moves the conversation to social media or Telegram",
+      "Uses AI-generated official-looking videos",
+      "Directs you to a lookalike IC3 website"
+    ],
+    "actionSteps": [
+      "Stop communicating",
+      "Type ic3.gov directly into the browser",
+      "Do not pay a recovery fee",
+      "Report the impersonating account and website"
+    ],
+    "responseScript": "IC3 does not contact people on social media or charge to recover funds.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "elevated",
+    "firstSeen": "2026-07-20",
+    "lastSeen": "2026-07-20",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-26T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "FBI Internet Crime Complaint Center",
+    "sourceUrl": "https://www.ic3.gov/PSA/2026/PSA260720",
+    "sourcePublishedAt": "2026-07-20T12:00:00Z"
+  },
+  {
+    "slug": "ftc-treatment-center-search-ad-2026",
+    "title": "Treatment-center search impersonation",
+    "summary": "The FTC warns that paid search ads can use another treatment center\u2019s name while displaying an impersonator\u2019s phone number and website.",
+    "category": "healthcare",
+    "channels": [
+      "web",
+      "phone"
+    ],
+    "impersonates": "A substance-use treatment center or recovery helpline",
+    "warningSigns": [
+      "A paid ad uses the clinic name but a different website or phone number",
+      "The caller answers with a generic greeting",
+      "The caller avoids confirming the exact facility"
+    ],
+    "actionSteps": [
+      "Scroll past paid search results",
+      "Type the known treatment center address directly",
+      "Verify the phone number through an independent source",
+      "Report deceptive practices to the FTC"
+    ],
+    "responseScript": "Before sharing health information, I will confirm I reached the exact facility.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2026-07-20",
+    "lastSeen": "2026-07-20",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-26T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Federal Trade Commission",
+    "sourceUrl": "https://consumer.ftc.gov/consumer-alerts/2026/07/looking-substance-use-disorder-clinic-scroll-past-paid-ads",
+    "sourcePublishedAt": "2026-07-20T12:00:00Z"
+  },
+  {
+    "slug": "ftc-military-debt-relief-2026",
+    "title": "Military debt-forgiveness scam",
+    "summary": "The FTC warns that callers invent military debt-forgiveness programs, claim ties to trusted institutions, and demand fees before providing help.",
+    "category": "financial-impersonation",
+    "channels": [
+      "phone",
+      "email",
+      "web"
+    ],
+    "impersonates": "A military bank, credit union, credit bureau, or veterans program",
+    "warningSigns": [
+      "An unsolicited caller offers exclusive military debt forgiveness",
+      "The company wants an upfront fee",
+      "You are told to pay the company instead of your real creditors"
+    ],
+    "actionSteps": [
+      "Do not pay upfront",
+      "Contact the lender directly",
+      "Use military or VA financial counseling resources",
+      "Research the company with your state attorney general"
+    ],
+    "responseScript": "I will contact my lender directly before changing any debt payment.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2026-07-06",
+    "lastSeen": "2026-07-17",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-26T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Federal Trade Commission",
+    "sourceUrl": "https://consumer.ftc.gov/consumer-alerts/2026/07/can-you-spot-debt-relief-scams-target-military",
+    "sourcePublishedAt": "2026-07-06T12:00:00Z"
+  },
+  {
+    "slug": "fake-job-offer-reshipping-2026",
+    "title": "Fake job offer and reshipping work",
+    "summary": "Scammers pose as employers, conduct convincing remote interviews, and may ask new hires to buy equipment, move money, or receive and reship packages.",
+    "category": "employment",
+    "channels": [
+      "email",
+      "sms",
+      "social",
+      "web"
+    ],
+    "impersonates": "An employer or recruiter",
+    "warningSigns": [
+      "The recruiter uses a personal email or text-only interview",
+      "You must pay for equipment or deposit a check",
+      "The job requires receiving and reshipping packages",
+      "The offer arrives before identity and references are verified"
+    ],
+    "actionSteps": [
+      "Verify the employer through its official website",
+      "Search the recruiter and company independently",
+      "Never pay to get a job",
+      "Do not deposit a check and send money onward"
+    ],
+    "responseScript": "I will verify this job through the company\u2019s official website before sharing information or money.",
+    "severity": "high",
+    "confidence": "corroborated",
+    "status": "active",
+    "firstSeen": "2024-05-31",
+    "lastSeen": "2026-07-14",
+    "sourceCount": 3,
+    "lastVerifiedAt": "2026-07-26T16:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "AARP",
+    "sourceUrl": "https://www.aarp.org/money/scams-fraud/social-media/",
+    "sourcePublishedAt": "2026-07-14T12:00:00Z"
+  },
+  {
+    "slug": "ftc-military-rental-listing-2026",
+    "title": "Fake rental listing",
+    "summary": "The FTC warns that scammers copy or invent housing listings, advertise below-market rent, prevent tours, and demand hard-to-reverse payments.",
+    "category": "shopping",
+    "channels": [
+      "web",
+      "email",
+      "sms",
+      "phone"
+    ],
+    "impersonates": "A landlord, property manager, or military housing contact",
+    "warningSigns": [
+      "The rent is far below comparable properties",
+      "The landlord will not allow an in-person tour",
+      "The same address appears under another landlord or price",
+      "Payment must be cash, gift card, cryptocurrency, or wire transfer"
+    ],
+    "actionSteps": [
+      "Search the address independently",
+      "Tour the property or ask a trusted local person to visit",
+      "Verify the owner or manager",
+      "Do not use hard-to-reverse payment methods"
+    ],
+    "responseScript": "I will verify the property and landlord before signing or paying.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2026-07-13",
+    "lastSeen": "2026-07-13",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-26T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Federal Trade Commission",
+    "sourceUrl": "https://consumer.ftc.gov/consumer-alerts/2026/07/how-spot-fake-rental-listings-during-military-move",
+    "sourcePublishedAt": "2026-07-13T12:00:00Z"
+  },
+  {
+    "slug": "ftc-unclaimed-life-insurance-2026",
+    "title": "Unclaimed life insurance inheritance letter",
+    "summary": "The FTC warns about letters from fake law firms claiming a person with your last name left a life insurance fortune.",
+    "category": "impersonation",
+    "channels": [
+      "mail",
+      "email"
+    ],
+    "impersonates": "A lawyer or law firm",
+    "warningSigns": [
+      "A stranger says you are heir to a policy worth millions",
+      "The sender proposes splitting the money",
+      "The sender asks for Social Security, bank, or payment information"
+    ],
+    "actionSteps": [
+      "Do not respond",
+      "Do not send money or personal information",
+      "Share the warning with family",
+      "Report the letter to the FTC"
+    ],
+    "responseScript": "I do not send information or money to strangers promising an inheritance.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2026-07-09",
+    "lastSeen": "2026-07-09",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-26T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Federal Trade Commission",
+    "sourceUrl": "https://consumer.ftc.gov/consumer-alerts/2026/07/unclaimed-life-insurance-money-its-scam",
+    "sourcePublishedAt": "2026-07-09T12:00:00Z"
+  },
+  {
+    "slug": "ftc-pet-emergency-deepfake-2026",
+    "title": "Pet emergency and animal charity impersonation",
+    "summary": "The FTC warns that scammers use stolen or AI-generated animal images to fake pet emergencies, charities, and prizes.",
+    "category": "charity",
+    "channels": [
+      "phone",
+      "sms",
+      "social",
+      "web"
+    ],
+    "impersonates": "Animal control, an animal hospital, shelter, or charity",
+    "warningSigns": [
+      "A caller claims to have your missing pet and demands payment",
+      "Images of a distressed animal cannot be independently verified",
+      "A prize requires a payment",
+      "Only gift card, payment app, cryptocurrency, or wire transfer is accepted"
+    ],
+    "actionSteps": [
+      "Slow down and contact the organization directly",
+      "Reverse-image-search the pictures",
+      "Do not pay to collect a prize",
+      "Report the scam to the FTC"
+    ],
+    "responseScript": "I will verify the animal hospital, shelter, or charity independently.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2026-06-24",
+    "lastSeen": "2026-06-24",
+    "sourceCount": 2,
+    "lastVerifiedAt": "2026-07-26T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "AARP",
+    "sourceUrl": "https://www.aarp.org/money/scams-fraud/lost-pet/",
+    "sourcePublishedAt": "2026-07-02T12:00:00Z"
+  },
+  {
+    "slug": "fbi-malicious-redirect-system-2026",
+    "title": "Malicious website redirect chain",
+    "summary": "The FBI warns that criminal traffic-distribution systems redirect advertisements, compromised sites, or phishing links to fake logins, financial scams, and malware.",
+    "category": "tech-support",
+    "channels": [
+      "web",
+      "email"
+    ],
+    "impersonates": "A legitimate website, login page, advertisement, or software update",
+    "warningSigns": [
+      "A link or ad redirects through several unfamiliar domains",
+      "A familiar page appears at a slightly different URL",
+      "A website unexpectedly prompts a software update or login"
+    ],
+    "actionSteps": [
+      "Close the page",
+      "Navigate to the known website directly",
+      "Keep software and plugins updated",
+      "Use strong passwords and two-factor authentication"
+    ],
+    "responseScript": "I will close this page and navigate to the service directly.",
+    "severity": "critical",
+    "confidence": "authority-confirmed",
+    "status": "elevated",
+    "firstSeen": "2026-06-18",
+    "lastSeen": "2026-06-18",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-26T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "FBI Internet Crime Complaint Center",
+    "sourceUrl": "https://www.ic3.gov/PSA/2026/PSA260618",
+    "sourcePublishedAt": "2026-06-18T12:00:00Z"
+  },
+  {
+    "slug": "ftc-travel-booking-scam-2026",
+    "title": "Travel booking and fake toll scams",
+    "summary": "The FTC warns that paid search ads can impersonate airlines or hotels and that fake unpaid-toll texts pressure travelers to pay.",
+    "category": "shopping",
+    "channels": [
+      "web",
+      "sms",
+      "phone"
+    ],
+    "impersonates": "An airline, hotel, travel company, or toll agency",
+    "warningSigns": [
+      "A paid result uses a familiar company name with a different URL or phone number",
+      "A text claims an unpaid toll and demands immediate payment",
+      "The seller accepts only wire transfer, gift card, payment app, or cryptocurrency"
+    ],
+    "actionSteps": [
+      "Type the company or toll agency website yourself",
+      "Check the URL and contact information",
+      "Research the offer before paying",
+      "Report the attempt to the FTC"
+    ],
+    "responseScript": "I will contact the travel company or toll agency through its official website.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2026-06-17",
+    "lastSeen": "2026-06-17",
+    "sourceCount": 2,
+    "lastVerifiedAt": "2026-07-26T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Federal Trade Commission",
+    "sourceUrl": "https://consumer.ftc.gov/consumer-alerts/2026/06/how-avoid-travel-scam-summer",
+    "sourcePublishedAt": "2026-06-17T12:00:00Z"
+  },
+  {
+    "slug": "fbi-crypto-cash-courier-2026",
+    "title": "Crypto investment cash courier",
+    "summary": "The FBI warns about fraudulent investment platforms that send couriers to collect cash from victims, often older adults.",
+    "category": "investment",
+    "channels": [
+      "social",
+      "sms",
+      "messaging",
+      "in-person"
+    ],
+    "impersonates": "A romantic contact, investment expert, or cryptocurrency platform",
+    "warningSigns": [
+      "Unsolicited investment relationship",
+      "A platform displays profits you cannot withdraw",
+      "Someone asks to collect cash at your home",
+      "A code or dollar-bill serial number is used to authenticate a courier"
+    ],
+    "actionSteps": [
+      "Do not meet the courier",
+      "Stop sending money",
+      "Preserve messages and account information",
+      "Contact your bank and report the scheme to IC3"
+    ],
+    "responseScript": "Legitimate investments do not send strangers to my home to collect cash.",
+    "severity": "critical",
+    "confidence": "authority-confirmed",
+    "status": "elevated",
+    "firstSeen": "2026-06-15",
+    "lastSeen": "2026-06-15",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-26T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "FBI Internet Crime Complaint Center",
+    "sourceUrl": "https://www.ic3.gov/PSA/2026/PSA260615",
+    "sourcePublishedAt": "2026-06-15T12:00:00Z"
+  },
+  {
+    "slug": "ftc-jury-duty-arrest-threat-2026",
+    "title": "Jury-duty arrest threat",
+    "summary": "The FTC warns about callers using fake warrants and threats of arrest for supposedly missing jury duty.",
+    "category": "government",
+    "channels": [
+      "phone",
+      "sms",
+      "email"
+    ],
+    "impersonates": "A U.S. Marshal, local police officer, or court",
+    "warningSigns": [
+      "Threatens immediate arrest",
+      "Sends an official-looking warrant by text or email",
+      "Demands payment by app, crypto, gift card, or wire"
+    ],
+    "actionSteps": [
+      "Hang up",
+      "Do not use contact details in the message",
+      "Contact the court through an official government website",
+      "Report the attempt to the FTC"
+    ],
+    "responseScript": "Courts do not demand payment by phone. I will verify this directly.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2026-06-11",
+    "lastSeen": "2026-06-11",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-26T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Federal Trade Commission",
+    "sourceUrl": "https://consumer.ftc.gov/consumer-alerts/2026/06/ignore-calls-texts-and-emails-threatening-arrest-you-missing-jury-duty",
+    "sourcePublishedAt": "2026-06-11T12:00:00Z"
+  },
+  {
+    "slug": "ftc-health-insurance-search-ad-2026",
+    "title": "Health insurance search-ad impersonator",
+    "summary": "The FTC warns that paid search results can mimic government health insurance or Medicare websites to collect information, fees, or misleading enrollments.",
+    "category": "healthcare",
+    "channels": [
+      "web",
+      "phone"
+    ],
+    "impersonates": "HealthCare.gov, Medicare, or another government health program",
+    "warningSigns": [
+      "The first result is labeled Ad or Sponsored",
+      "A supposed government website does not end in .gov",
+      "The site asks for an unnecessary fee or routes you to an unexpected seller"
+    ],
+    "actionSteps": [
+      "Scroll past paid results",
+      "Check the complete URL",
+      "Type HealthCare.gov or the known official address yourself",
+      "Report deceptive ads to the FTC"
+    ],
+    "responseScript": "I will use the official .gov website instead of a paid search result.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2026-06-09",
+    "lastSeen": "2026-06-09",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-26T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Federal Trade Commission",
+    "sourceUrl": "https://consumer.ftc.gov/consumer-alerts/2026/06/searching-health-insurance-keep-scrolling-avoid-government-impersonators",
+    "sourcePublishedAt": "2026-06-09T12:00:00Z"
+  },
+  {
+    "slug": "ftc-fake-captcha-malware-2026",
+    "title": "Fake CAPTCHA installs malware",
+    "summary": "The FTC warns that a fake CAPTCHA may tell users to run keyboard commands that paste and execute hidden malware.",
+    "category": "tech-support",
+    "channels": [
+      "web"
+    ],
+    "impersonates": "A browser security or human-verification prompt",
+    "warningSigns": [
+      "A CAPTCHA asks you to press Windows plus R",
+      "The prompt tells you to paste commands or press Enter",
+      "A download begins after the verification"
+    ],
+    "actionSteps": [
+      "Do not run the commands",
+      "Disconnect from the internet if you complied",
+      "Run a security scan",
+      "Change passwords and enable two-factor authentication from another device"
+    ],
+    "responseScript": "Real CAPTCHAs do not ask me to run commands on my device.",
+    "severity": "critical",
+    "confidence": "authority-confirmed",
+    "status": "elevated",
+    "firstSeen": "2026-06-08",
+    "lastSeen": "2026-06-08",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-26T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Federal Trade Commission",
+    "sourceUrl": "https://consumer.ftc.gov/consumer-alerts/2026/06/how-spot-captcha-scam",
+    "sourcePublishedAt": "2026-06-08T12:00:00Z"
+  },
+  {
+    "slug": "ftc-employee-photo-id-impersonation-2026",
+    "title": "Fake FTC employee photo ID",
+    "summary": "The FTC warns that scammers text official-looking photo identification while impersonating agency employees to obtain money or account access.",
+    "category": "government",
+    "channels": [
+      "sms",
+      "phone",
+      "email"
+    ],
+    "impersonates": "A Federal Trade Commission employee",
+    "warningSigns": [
+      "An unexpected contact sends an FTC photo ID",
+      "The person asks for money or access to financial accounts",
+      "The contact uses the badge image as proof instead of independent verification"
+    ],
+    "actionSteps": [
+      "Stop communicating",
+      "Do not use contact information the sender provided",
+      "Verify through FTC.gov",
+      "Report the impersonation"
+    ],
+    "responseScript": "I will verify an agency contact using the official agency website.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2026-06-03",
+    "lastSeen": "2026-06-03",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-26T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Federal Trade Commission",
+    "sourceUrl": "https://consumer.ftc.gov/consumer-alerts/2026/06/real-ftc-employee-wont-text-you-their-photo-id-verify-their-identity",
+    "sourcePublishedAt": "2026-06-03T12:00:00Z"
+  },
+  {
+    "slug": "fbi-fifa-website-spoofing-2026",
+    "title": "Fake FIFA and World Cup websites",
+    "summary": "The FBI warns that criminals spoof FIFA websites and advertisements to steal credentials, personal information, or payments around the 2026 World Cup.",
+    "category": "shopping",
+    "channels": [
+      "web",
+      "email",
+      "social"
+    ],
+    "impersonates": "FIFA or a World Cup service",
+    "warningSigns": [
+      "The domain is not exactly fifa.com or an official subdomain reached from it",
+      "A search advertisement redirects to another address",
+      "The page uses low-quality copied graphics or asks for sensitive information"
+    ],
+    "actionSteps": [
+      "Type www.fifa.com directly",
+      "Use a saved bookmark rather than an advertisement",
+      "Do not share information on an unverified page",
+      "Report the fake domain to IC3"
+    ],
+    "responseScript": "I will begin at the official FIFA website and verify the complete domain.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "elevated",
+    "firstSeen": "2026-05-27",
+    "lastSeen": "2026-05-27",
+    "sourceCount": 2,
+    "lastVerifiedAt": "2026-07-26T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "AARP",
+    "sourceUrl": "https://www.aarp.org/money/scams-fraud/world-cup-ticket-scams/",
+    "sourcePublishedAt": "2026-06-09T12:00:00Z"
+  },
+  {
+    "slug": "fbi-cryptocurrency-kiosk-payment-2026",
+    "title": "Cryptocurrency kiosk payment demand",
+    "summary": "The FBI warns that scammers direct victims to withdraw cash, scan a supplied QR code, and send cryptocurrency through a kiosk.",
+    "category": "investment",
+    "channels": [
+      "phone",
+      "sms",
+      "email",
+      "social",
+      "in-person"
+    ],
+    "impersonates": "A government office, utility, company, lawyer, investment adviser, or acquaintance",
+    "warningSigns": [
+      "An online-only contact directs you to a cryptocurrency kiosk",
+      "Someone supplies a QR code and detailed deposit instructions",
+      "A caller stays on the phone while you withdraw cash or operate the kiosk",
+      "The caller says cryptocurrency is the only payment"
+    ],
+    "actionSteps": [
+      "Do not withdraw or deposit the cash",
+      "Do not scan a QR code supplied by the caller",
+      "Contact the claimed organization directly",
+      "Report the scheme to IC3 and your financial institution"
+    ],
+    "responseScript": "No legitimate government or law-enforcement official demands payment at a cryptocurrency kiosk.",
+    "severity": "critical",
+    "confidence": "authority-confirmed",
+    "status": "elevated",
+    "firstSeen": "2026-05-15",
+    "lastSeen": "2026-05-15",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-26T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "FBI Internet Crime Complaint Center",
+    "sourceUrl": "https://www.ic3.gov/PSA/2026/PSA260515-2",
+    "sourcePublishedAt": "2026-05-15T12:00:00Z"
+  },
+  {
+    "slug": "social-account-reverification-phishing-2026",
+    "title": "Social media account reverification phishing",
+    "summary": "Messages claiming a verified social account has violated rules or must be reverified send users to fake forms that steal credentials or install malware.",
+    "category": "impersonation",
+    "channels": [
+      "email",
+      "sms",
+      "social",
+      "web"
+    ],
+    "impersonates": "A social media platform",
+    "warningSigns": [
+      "The message threatens immediate suspension",
+      "The link opens a different domain",
+      "A form asks for a password or recovery code",
+      "An attachment or download is presented as an appeal"
+    ],
+    "actionSteps": [
+      "Open the platform directly instead of the link",
+      "Check account notices inside the official app",
+      "Do not share passwords or one-time codes",
+      "Report and delete the message"
+    ],
+    "responseScript": "I will check my account inside the official app instead of using this link.",
+    "severity": "high",
+    "confidence": "corroborated",
+    "status": "active",
+    "firstSeen": "2022-09-01",
+    "lastSeen": "2026-04-27",
+    "sourceCount": 2,
+    "lastVerifiedAt": "2026-07-26T16:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Better Business Bureau",
+    "sourceUrl": "https://www.bbb.org/article/scams/27435-bbb-scam-alert-how-to-protect-your-verified-social-media-account",
+    "sourcePublishedAt": "2022-09-01T12:00:00Z"
+  },
+  {
+    "slug": "publishers-clearing-house-prize-fee-2026",
+    "title": "Publishers Clearing House prize-fee scam",
+    "summary": "Impostors claim you won a Publishers Clearing House prize, then demand taxes, processing fees, gift cards, cash, or account information before releasing nonexistent winnings.",
+    "category": "impersonation",
+    "channels": [
+      "phone",
+      "mail",
+      "email",
+      "sms"
+    ],
+    "impersonates": "Publishers Clearing House or a prize administrator",
+    "warningSigns": [
+      "You are told you won without entering",
+      "Payment is required before receiving the prize",
+      "The caller requests gift cards, cash, cryptocurrency, or bank information",
+      "Secrecy or urgency is emphasized"
+    ],
+    "actionSteps": [
+      "Do not pay to claim a prize",
+      "Contact the organization through its official website",
+      "Do not share bank or identity information",
+      "Report the impersonation to the FTC"
+    ],
+    "responseScript": "A real prize does not require me to pay first.",
+    "severity": "high",
+    "confidence": "corroborated",
+    "status": "active",
+    "firstSeen": "2023-12-01",
+    "lastSeen": "2026-03-13",
+    "sourceCount": 2,
+    "lastVerifiedAt": "2026-07-26T16:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "AARP",
+    "sourceUrl": "https://www.aarp.org/money/scams-fraud/publishers-clearing-house/",
+    "sourcePublishedAt": "2026-03-13T12:00:00Z"
+  },
+  {
+    "slug": "fbi-planning-permit-payment-2026",
+    "title": "Planning and zoning permit payment phishing",
+    "summary": "The FBI warns that criminals use real public permit details while impersonating city or county officials and sending fraudulent fee invoices.",
+    "category": "government",
+    "channels": [
+      "email"
+    ],
+    "impersonates": "A city or county planning and zoning department",
+    "warningSigns": [
+      "The message contains accurate permit details but comes from a non-government domain",
+      "A PDF invoice says to request payment instructions only by email",
+      "Payment is requested by wire, peer-to-peer app, or cryptocurrency",
+      "The message threatens permit delays"
+    ],
+    "actionSteps": [
+      "Check the sender\u2019s complete domain",
+      "Call the city or county using its official website number",
+      "Do not rely on seals or official names as proof",
+      "Report the email and invoice to IC3"
+    ],
+    "responseScript": "I will call the permitting office using the number on its official website.",
+    "severity": "critical",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2026-03-09",
+    "lastSeen": "2026-03-09",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-26T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "FBI Internet Crime Complaint Center",
+    "sourceUrl": "https://www.ic3.gov/PSA/2026/PSA260309",
+    "sourcePublishedAt": "2026-03-09T12:00:00Z"
+  },
+  {
+    "slug": "fake-store-tariff-delay-2025",
+    "title": "Fake online store blames tariffs",
+    "summary": "Fraudulent online stores take payment, never deliver, then blame tariffs or customs and demand extra fees instead of providing a valid shipment or refund.",
+    "category": "shopping",
+    "channels": [
+      "web",
+      "email",
+      "social"
+    ],
+    "impersonates": "An online retailer, carrier, or customs office",
+    "warningSigns": [
+      "The price is unusually low",
+      "Tracking never becomes verifiable",
+      "The seller blames tariffs or customs and asks for more money",
+      "The shop has no independent reputation or reachable support"
+    ],
+    "actionSteps": [
+      "Research the seller before buying",
+      "Pay by credit card when possible",
+      "Verify tracking with the carrier directly",
+      "Dispute charges for goods that never arrive"
+    ],
+    "responseScript": "I will verify the seller and shipment independently before paying another fee.",
+    "severity": "high",
+    "confidence": "corroborated",
+    "status": "active",
+    "firstSeen": "2025-06-03",
+    "lastSeen": "2025-08-26",
+    "sourceCount": 2,
+    "lastVerifiedAt": "2026-07-26T16:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Federal Trade Commission",
+    "sourceUrl": "https://consumer.ftc.gov/consumer-alerts/2025/08/social-media-ad-super-low-prices-well-known-brands-could-be-scam",
+    "sourcePublishedAt": "2025-08-26T12:00:00Z"
+  },
+  {
+    "slug": "uspis-package-smishing-2025",
+    "title": "USPS package-tracking text",
+    "summary": "USPIS warns that unsolicited package texts containing unfamiliar links are smishing attempts designed to steal personal or financial information.",
+    "category": "delivery",
+    "channels": [
+      "sms"
+    ],
+    "impersonates": "The United States Postal Service",
+    "warningSigns": [
+      "You did not request text tracking",
+      "The message contains an unfamiliar link",
+      "The text claims a delivery needs payment or personal information"
+    ],
+    "actionSteps": [
+      "Do not click or reply",
+      "Track the parcel by typing USPS.com yourself",
+      "Forward the text to 7726",
+      "Send USPS-related smishing reports to spam@uspis.gov"
+    ],
+    "responseScript": "I will check tracking directly at USPS.com.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2025-05-19",
+    "lastSeen": "2025-05-19",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-26T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "United States Postal Inspection Service",
+    "sourceUrl": "https://www.uspis.gov/news/scam-article/smishing-package-tracking-text-scams",
+    "sourcePublishedAt": "2025-05-19T12:00:00Z"
+  },
+  {
+    "slug": "uspis-fake-delivery-email-2025",
+    "title": "Fake USPS delivery-failure email",
+    "summary": "USPIS warns that fake USPS emails use delivery-failure or unpaid-postage claims to spread malware and steal credentials or financial information.",
+    "category": "delivery",
+    "channels": [
+      "email"
+    ],
+    "impersonates": "USPS or the Postmaster General",
+    "warningSigns": [
+      "An unexpected delivery email contains a link or attachment",
+      "The message requests personal information or money",
+      "The email demands immediate action or contains poor grammar"
+    ],
+    "actionSteps": [
+      "Do not click or download",
+      "Forward USPS-related spam to spam@uspis.gov",
+      "Delete the email",
+      "Contact your financial institution if you interacted with the link"
+    ],
+    "responseScript": "I will check delivery information directly through USPS.com.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2025-05-19",
+    "lastSeen": "2025-05-19",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-26T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "United States Postal Inspection Service",
+    "sourceUrl": "https://www.uspis.gov/news/scam-article/fake-usps-emails",
+    "sourcePublishedAt": "2025-05-19T12:00:00Z"
+  },
+  {
+    "slug": "fake-process-server-court-case-2025",
+    "title": "Fake process server and court case",
+    "summary": "Callers claim a process server is looking for you or that a court case or debt requires immediate payment, using threats and incomplete case details to create panic.",
+    "category": "government",
+    "channels": [
+      "phone",
+      "voicemail",
+      "sms"
+    ],
+    "impersonates": "A court, process server, law firm, or debt collector",
+    "warningSigns": [
+      "The caller threatens arrest or immediate service",
+      "No court name or verifiable case number is provided",
+      "Payment is demanded to stop legal action",
+      "The caller refuses written validation"
+    ],
+    "actionSteps": [
+      "Do not pay during the call",
+      "Contact the named court using its official website",
+      "Ask a debt collector for written validation",
+      "Report abusive collection attempts"
+    ],
+    "responseScript": "I will verify any case directly with the court before discussing payment.",
+    "severity": "high",
+    "confidence": "corroborated",
+    "status": "active",
+    "firstSeen": "2025-05-14",
+    "lastSeen": "2025-05-14",
+    "sourceCount": 2,
+    "lastVerifiedAt": "2026-07-26T16:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Better Business Bureau",
+    "sourceUrl": "https://www.bbb.org/article/scams/28919-bbb-scam-alert-this-phishing-scam-claims-a-process-server-is-looking-for-you",
+    "sourcePublishedAt": "2025-05-14T12:00:00Z"
+  },
+  {
+    "slug": "uspis-brushing-package-2025",
+    "title": "Unexpected package brushing scam",
+    "summary": "USPIS warns that unsolicited packages may support fake reviews and can include QR codes leading to phishing sites.",
+    "category": "shopping",
+    "channels": [
+      "mail",
+      "web"
+    ],
+    "impersonates": "A retailer or third-party seller",
+    "warningSigns": [
+      "A package arrives that nobody ordered",
+      "The parcel has no useful return address",
+      "A card asks you to scan a QR code to identify the sender",
+      "A review appears under your name for the item"
+    ],
+    "actionSteps": [
+      "Do not pay for unsolicited merchandise",
+      "Do not scan enclosed QR codes",
+      "Change account passwords and monitor credit",
+      "Report fake reviews to the retailer"
+    ],
+    "responseScript": "I will not scan a code or pay for merchandise I did not order.",
+    "severity": "medium",
+    "confidence": "authority-confirmed",
+    "status": "watch",
+    "firstSeen": "2025-03-24",
+    "lastSeen": "2025-03-24",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-26T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "United States Postal Inspection Service",
+    "sourceUrl": "https://www.uspis.gov/news/scam-article/brushing-scam",
+    "sourcePublishedAt": "2025-03-24T12:00:00Z"
+  },
+  {
+    "slug": "uspis-quishing-qr-code-2025",
+    "title": "QR-code phishing",
+    "summary": "USPIS warns that fraudulent QR codes in messages, public places, or unsolicited packages can lead to fake sites that steal personal and financial information.",
+    "category": "impersonation",
+    "channels": [
+      "mail",
+      "email",
+      "sms",
+      "web"
+    ],
+    "impersonates": "A bank, government agency, company, or gift sender",
+    "warningSigns": [
+      "An unexpected QR code urges immediate scanning",
+      "A code is pasted over another code in a public place",
+      "An unsolicited package asks you to scan to identify the sender",
+      "The destination requests login, Social Security, card, or PIN information"
+    ],
+    "actionSteps": [
+      "Do not scan unexpected codes",
+      "Navigate to the organization directly",
+      "Contact the impersonated organization",
+      "Report USPS-related quishing to spam@uspis.gov"
+    ],
+    "responseScript": "I will use the organization\u2019s official app or website instead of this QR code.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2025-02-20",
+    "lastSeen": "2025-02-20",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-26T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "United States Postal Inspection Service",
+    "sourceUrl": "https://www.uspis.gov/news/scam-article/quishing",
+    "sourcePublishedAt": "2025-02-20T12:00:00Z"
+  },
+  {
+    "slug": "uspis-vishing-phone-call-2024",
+    "title": "Postal inspector voice-phishing call",
+    "summary": "USPIS warns that callers spoof official numbers, threaten arrest, and impersonate Postal Inspectors to demand money or personal information.",
+    "category": "government",
+    "channels": [
+      "phone",
+      "voicemail"
+    ],
+    "impersonates": "A Postal Inspector, USPS employee, or law-enforcement official",
+    "warningSigns": [
+      "The caller threatens arrest or punishment",
+      "Caller ID displays an official-looking number",
+      "The caller asks you to confirm information they already know",
+      "Money or sensitive information is demanded immediately"
+    ],
+    "actionSteps": [
+      "Hang up",
+      "Do not confirm personal information",
+      "Call the agency using a verified number",
+      "Report postal impersonation to USPIS"
+    ],
+    "responseScript": "I will hang up and call the agency through its official website.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2024-06-17",
+    "lastSeen": "2024-06-17",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-26T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "United States Postal Inspection Service",
+    "sourceUrl": "https://www.uspis.gov/news/scam-article/vishing",
+    "sourcePublishedAt": "2024-06-17T12:00:00Z"
+  }
+]
