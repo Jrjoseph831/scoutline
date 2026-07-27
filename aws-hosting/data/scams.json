@@ -82,7 +82,7 @@
   {
     "slug": "ftc-treatment-center-search-ad-2026",
     "title": "Treatment-center search impersonation",
-    "summary": "The FTC warns that paid search ads can use another treatment center\u2019s name while displaying an impersonator\u2019s phone number and website.",
+    "summary": "The FTC warns that paid search ads can use another treatment center’s name while displaying an impersonator’s phone number and website.",
     "category": "healthcare",
     "channels": [
       "web",
@@ -178,7 +178,7 @@
       "Never pay to get a job",
       "Do not deposit a check and send money onward"
     ],
-    "responseScript": "I will verify this job through the company\u2019s official website before sharing information or money.",
+    "responseScript": "I will verify this job through the company’s official website before sharing information or money.",
     "severity": "high",
     "confidence": "corroborated",
     "status": "active",
@@ -387,6 +387,46 @@
     "sourcePublishedAt": "2026-06-17T12:00:00Z"
   },
   {
+    "slug": "fbi-vacant-land-owner-impersonation-2026",
+    "title": "Vacant-land owner impersonation",
+    "summary": "Criminals forge IDs and impersonate owners of vacant parcels to list and sell property without permission.",
+    "category": "property",
+    "channels": [
+      "email",
+      "phone",
+      "web",
+      "in-person"
+    ],
+    "impersonates": "A vacant-land owner",
+    "warningSigns": [
+      "Seller insists on a remote transaction",
+      "Price is unusually low",
+      "Identity documents do not withstand independent checks",
+      "Seller avoids video or in-person verification"
+    ],
+    "actionSteps": [
+      "Property owners should set title or tax alerts",
+      "Realtors should verify identity independently",
+      "Contact the recorded owner through separate records",
+      "Alert the title company and law enforcement"
+    ],
+    "responseScript": "I will verify the owner outside the contact information they supplied.",
+    "severity": "critical",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2026-06-16",
+    "lastSeen": "2026-06-16",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-27T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "FBI Internet Crime Complaint Center",
+    "sourceUrl": "https://www.ic3.gov/PSA/2026/PSA260616",
+    "sourcePublishedAt": "2026-06-16T12:00:00Z"
+  },
+  {
     "slug": "fbi-crypto-cash-courier-2026",
     "title": "Crypto investment cash courier",
     "summary": "The FBI warns about fraudulent investment platforms that send couriers to collect cash from victims, often older adults.",
@@ -576,6 +616,44 @@
     "sourcePublishedAt": "2026-06-03T12:00:00Z"
   },
   {
+    "slug": "fbi-hospice-enrollment-fraud-2026",
+    "title": "Medicare hospice enrollment fraud",
+    "summary": "Recruiters enroll people who do not need hospice, sometimes without their knowledge, so providers can bill Medicare.",
+    "category": "healthcare",
+    "channels": [
+      "phone",
+      "in-person",
+      "mail"
+    ],
+    "impersonates": "A hospice provider or Medicare helper",
+    "warningSigns": [
+      "Free services conditioned on hospice enrollment",
+      "Gift card or cash offered for enrollment",
+      "Unknown hospice appears on a Medicare statement"
+    ],
+    "actionSteps": [
+      "Do not share Medicare information with unsolicited callers",
+      "Review Medicare Summary Notices",
+      "Check providers with Medicare",
+      "Report unknown services"
+    ],
+    "responseScript": "I will discuss hospice only with my doctor and a provider I verify.",
+    "severity": "critical",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2026-06-03",
+    "lastSeen": "2026-06-03",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-27T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "FBI Internet Crime Complaint Center",
+    "sourceUrl": "https://www.ic3.gov/PSA/2026/PSA260603",
+    "sourcePublishedAt": "2026-06-03T12:00:00Z"
+  },
+  {
     "slug": "fbi-fifa-website-spoofing-2026",
     "title": "Fake FIFA and World Cup websites",
     "summary": "The FBI warns that criminals spoof FIFA websites and advertisements to steal credentials, personal information, or payments around the 2026 World Cup.",
@@ -750,7 +828,7 @@
       "The message threatens permit delays"
     ],
     "actionSteps": [
-      "Check the sender\u2019s complete domain",
+      "Check the sender’s complete domain",
       "Call the city or county using its official website number",
       "Do not rely on seals or official names as proof",
       "Report the email and invoice to IC3"
@@ -770,6 +848,545 @@
     "sourcePublisher": "FBI Internet Crime Complaint Center",
     "sourceUrl": "https://www.ic3.gov/PSA/2026/PSA260309",
     "sourcePublishedAt": "2026-03-09T12:00:00Z"
+  },
+  {
+    "slug": "irs-phishing-smishing-2026",
+    "title": "IRS refund or account-verification message",
+    "summary": "Emails, texts, direct messages, and QR codes impersonate the IRS and lead to fake account or refund pages.",
+    "category": "government",
+    "channels": [
+      "email",
+      "sms",
+      "social",
+      "web"
+    ],
+    "impersonates": "The Internal Revenue Service",
+    "warningSigns": [
+      "Unexpected IRS message with a link or QR code",
+      "Threat or refund promise designed to create urgency",
+      "Page asks for tax, identity, or banking details"
+    ],
+    "actionSteps": [
+      "Do not open the link or attachment",
+      "Go to IRS.gov directly",
+      "Forward suspicious email to phishing@irs.gov",
+      "Review your IRS Online Account independently"
+    ],
+    "responseScript": "I do not use links in unexpected IRS messages.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2026-03-05",
+    "lastSeen": "2026-03-05",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-27T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Internal Revenue Service",
+    "sourceUrl": "https://www.irs.gov/newsroom/dirty-dozen-tax-scams-for-2026-irs-reminds-taxpayers-to-watch-out-for-dangerous-threats",
+    "sourcePublishedAt": "2026-03-05T12:00:00Z"
+  },
+  {
+    "slug": "irs-ai-phone-impersonation-2026",
+    "title": "AI-generated IRS phone threat",
+    "summary": "Robocalls and cloned voices spoof IRS caller ID, demand immediate payment, or threaten arrest.",
+    "category": "government",
+    "channels": [
+      "phone",
+      "voicemail"
+    ],
+    "impersonates": "The Internal Revenue Service",
+    "warningSigns": [
+      "Urgent prerecorded threat",
+      "Caller ID appears to say IRS",
+      "Demand for immediate payment or secrecy"
+    ],
+    "actionSteps": [
+      "Hang up",
+      "Do not trust caller ID",
+      "Verify through IRS.gov",
+      "Report the call"
+    ],
+    "responseScript": "The IRS generally contacts taxpayers by mail first. I will verify independently.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2026-03-05",
+    "lastSeen": "2026-03-05",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-27T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Internal Revenue Service",
+    "sourceUrl": "https://www.irs.gov/newsroom/dirty-dozen-tax-scams-for-2026-irs-reminds-taxpayers-to-watch-out-for-dangerous-threats",
+    "sourcePublishedAt": "2026-03-05T12:00:00Z"
+  },
+  {
+    "slug": "irs-fake-charity-2026",
+    "title": "Disaster and tragedy charity impostor",
+    "summary": "Fraudsters exploit disasters and tragedies with fake charities that collect donations and personal information.",
+    "category": "charity",
+    "channels": [
+      "phone",
+      "email",
+      "sms",
+      "social",
+      "web"
+    ],
+    "impersonates": "A charity or disaster-relief organization",
+    "warningSigns": [
+      "High-pressure request tied to a current tragedy",
+      "Donation requested by gift card, crypto, wire, or payment app",
+      "Charity cannot be found in official records"
+    ],
+    "actionSteps": [
+      "Search the IRS tax-exempt organization tool",
+      "Donate through the charity's official site",
+      "Do not send payment under pressure",
+      "Report the fundraiser"
+    ],
+    "responseScript": "I will verify the charity before donating.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2026-03-05",
+    "lastSeen": "2026-03-05",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-27T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Internal Revenue Service",
+    "sourceUrl": "https://www.irs.gov/newsroom/dirty-dozen-tax-scams-for-2026-irs-reminds-taxpayers-to-watch-out-for-dangerous-threats",
+    "sourcePublishedAt": "2026-03-05T12:00:00Z"
+  },
+  {
+    "slug": "irs-social-media-tax-hack-2026",
+    "title": "Viral tax-credit or refund hack",
+    "summary": "Social posts promote false deductions or credits that can cause refund delays, audits, penalties, or prosecution.",
+    "category": "tax",
+    "channels": [
+      "social",
+      "video",
+      "messaging"
+    ],
+    "impersonates": "A tax expert or successful taxpayer",
+    "warningSigns": [
+      "Promises a secret refund method",
+      "Tells everyone they qualify",
+      "Encourages invented income, withholding, or expenses"
+    ],
+    "actionSteps": [
+      "Check the claim on IRS.gov",
+      "Ask a credentialed tax professional",
+      "Do not sign an inaccurate return",
+      "Correct a filed return promptly"
+    ],
+    "responseScript": "A viral post is not tax advice. I will verify the rule.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2026-03-05",
+    "lastSeen": "2026-03-05",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-27T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Internal Revenue Service",
+    "sourceUrl": "https://www.irs.gov/newsroom/dirty-dozen-tax-scams-for-2026-irs-reminds-taxpayers-to-watch-out-for-dangerous-threats",
+    "sourcePublishedAt": "2026-03-05T12:00:00Z"
+  },
+  {
+    "slug": "irs-online-account-helper-2026",
+    "title": "IRS Online Account setup helper",
+    "summary": "Criminals pose as helpers to collect identity information or take over an IRS Online Account.",
+    "category": "identity",
+    "channels": [
+      "phone",
+      "email",
+      "sms",
+      "social",
+      "web"
+    ],
+    "impersonates": "An IRS account helper",
+    "warningSigns": [
+      "Unsolicited offer to create an IRS account",
+      "Request for login, verification code, or identity documents",
+      "Link does not lead to IRS.gov"
+    ],
+    "actionSteps": [
+      "Create the account only at IRS.gov",
+      "Never share a one-time code",
+      "Change credentials if shared",
+      "Review tax records for identity theft"
+    ],
+    "responseScript": "I will set up my IRS account directly at IRS.gov.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2026-03-05",
+    "lastSeen": "2026-03-05",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-27T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Internal Revenue Service",
+    "sourceUrl": "https://www.irs.gov/newsroom/dirty-dozen-tax-scams-for-2026-irs-reminds-taxpayers-to-watch-out-for-dangerous-threats",
+    "sourcePublishedAt": "2026-03-05T12:00:00Z"
+  },
+  {
+    "slug": "irs-fake-self-employment-credit-2026",
+    "title": "Bogus self-employment tax credit promoter",
+    "summary": "Promoters market a broad self-employment credit, charge fees, and encourage ineligible or inaccurate refund claims.",
+    "category": "tax",
+    "channels": [
+      "social",
+      "email",
+      "phone",
+      "web"
+    ],
+    "impersonates": "A tax credit specialist",
+    "warningSigns": [
+      "Promises a large guaranteed refund",
+      "Bases fees on the refund amount",
+      "Will not explain the legal eligibility rule"
+    ],
+    "actionSteps": [
+      "Check eligibility on IRS.gov",
+      "Use a credentialed preparer",
+      "Reject guaranteed-refund claims",
+      "Keep copies of all filings"
+    ],
+    "responseScript": "I will verify any tax credit with an independent professional.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2026-03-05",
+    "lastSeen": "2026-03-05",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-27T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Internal Revenue Service",
+    "sourceUrl": "https://www.irs.gov/newsroom/dirty-dozen-tax-scams-for-2026-irs-reminds-taxpayers-to-watch-out-for-dangerous-threats",
+    "sourcePublishedAt": "2026-03-05T12:00:00Z"
+  },
+  {
+    "slug": "irs-ghost-preparer-2026",
+    "title": "Ghost tax-return preparer",
+    "summary": "A paid preparer refuses to sign the return or include a valid preparer tax identification number, leaving the taxpayer responsible.",
+    "category": "tax",
+    "channels": [
+      "in-person",
+      "web",
+      "social"
+    ],
+    "impersonates": "A tax professional",
+    "warningSigns": [
+      "Refuses to sign the return",
+      "Will not provide a PTIN",
+      "Asks you to sign a blank return",
+      "Directs the refund to another account"
+    ],
+    "actionSteps": [
+      "Check the preparer's credentials",
+      "Review the full return before signing",
+      "Use the IRS preparer directory",
+      "Report misconduct"
+    ],
+    "responseScript": "I will not file until the preparer signs and provides a valid PTIN.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2026-03-05",
+    "lastSeen": "2026-03-05",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-27T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Internal Revenue Service",
+    "sourceUrl": "https://www.irs.gov/newsroom/dirty-dozen-tax-scams-for-2026-irs-reminds-taxpayers-to-watch-out-for-dangerous-threats",
+    "sourcePublishedAt": "2026-03-05T12:00:00Z"
+  },
+  {
+    "slug": "irs-overstated-withholding-2026",
+    "title": "Fabricated withholding refund scheme",
+    "summary": "Promoters tell taxpayers to invent wages or withholding on tax forms to manufacture a refund.",
+    "category": "tax",
+    "channels": [
+      "social",
+      "web",
+      "in-person"
+    ],
+    "impersonates": "A tax strategist or preparer",
+    "warningSigns": [
+      "Claims made-up withholding creates free money",
+      "Uses forms unrelated to your actual income",
+      "Says the IRS cannot verify the amounts"
+    ],
+    "actionSteps": [
+      "Do not file false information",
+      "Compare every form with real records",
+      "Consult a credentialed preparer",
+      "Amend an inaccurate return"
+    ],
+    "responseScript": "I will only report withholding shown in my real records.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2026-03-05",
+    "lastSeen": "2026-03-05",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-27T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Internal Revenue Service",
+    "sourceUrl": "https://www.irs.gov/newsroom/dirty-dozen-tax-scams-for-2026-irs-reminds-taxpayers-to-watch-out-for-dangerous-threats",
+    "sourcePublishedAt": "2026-03-05T12:00:00Z"
+  },
+  {
+    "slug": "irs-new-client-spearphishing-2026",
+    "title": "Fake tax client document request",
+    "summary": "Tax professionals and businesses receive fake new-client emails or document links that deliver malware and steal client data.",
+    "category": "business",
+    "channels": [
+      "email",
+      "web"
+    ],
+    "impersonates": "A new tax client or business contact",
+    "warningSigns": [
+      "Unexpected tax documents or cloud-sharing link",
+      "Sender domain does not match the claimed person",
+      "Pressure to open a file before speaking"
+    ],
+    "actionSteps": [
+      "Verify the sender by another channel",
+      "Do not enable macros or install software",
+      "Scan files in an isolated workflow",
+      "Reset credentials after suspicious access"
+    ],
+    "responseScript": "I will verify the sender before opening tax documents.",
+    "severity": "critical",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2026-03-05",
+    "lastSeen": "2026-03-05",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-27T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Internal Revenue Service",
+    "sourceUrl": "https://www.irs.gov/newsroom/dirty-dozen-tax-scams-for-2026-irs-reminds-taxpayers-to-watch-out-for-dangerous-threats",
+    "sourcePublishedAt": "2026-03-05T12:00:00Z"
+  },
+  {
+    "slug": "irs-oic-mill-2026",
+    "title": "Tax-debt Offer in Compromise mill",
+    "summary": "High-pressure companies overpromise tax-debt settlements and charge people who are unlikely to qualify.",
+    "category": "debt",
+    "channels": [
+      "phone",
+      "radio",
+      "web",
+      "email"
+    ],
+    "impersonates": "An IRS tax-debt resolution service",
+    "warningSigns": [
+      "Guarantees pennies-on-the-dollar settlement",
+      "Demands a large fee before reviewing finances",
+      "Claims special access to the IRS"
+    ],
+    "actionSteps": [
+      "Use the free IRS pre-qualifier",
+      "Check professional credentials",
+      "Get the fee and service in writing",
+      "Avoid guaranteed outcomes"
+    ],
+    "responseScript": "I will check IRS eligibility before paying a tax-relief company.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2026-03-05",
+    "lastSeen": "2026-03-05",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-27T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Internal Revenue Service",
+    "sourceUrl": "https://www.irs.gov/newsroom/dirty-dozen-tax-scams-for-2026-irs-reminds-taxpayers-to-watch-out-for-dangerous-threats",
+    "sourcePublishedAt": "2026-03-05T12:00:00Z"
+  },
+  {
+    "slug": "uspis-tax-refund-identity-theft-2026",
+    "title": "Stolen-identity tax refund",
+    "summary": "Criminals use stolen names and Social Security numbers to file tax returns and divert refunds.",
+    "category": "identity",
+    "channels": [
+      "web",
+      "mail",
+      "email"
+    ],
+    "impersonates": "A taxpayer filing a legitimate return",
+    "warningSigns": [
+      "IRS says more than one return used your SSN",
+      "Tax record lists an unknown employer",
+      "Unexpected tax transcript, notice, or refund"
+    ],
+    "actionSteps": [
+      "Create and secure an IRS Online Account",
+      "Respond to IRS identity-verification letters",
+      "File Form 14039 when directed",
+      "Secure credit and email accounts"
+    ],
+    "responseScript": "I will use IRS.gov directly to address possible tax identity theft.",
+    "severity": "critical",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2026-02-05",
+    "lastSeen": "2026-02-05",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-27T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "United States Postal Inspection Service",
+    "sourceUrl": "https://www.uspis.gov/news/scam-article/fraudulent-tax-returns-and-refunds",
+    "sourcePublishedAt": "2026-02-05T12:00:00Z"
+  },
+  {
+    "slug": "aarp-romance-crypto-investment-2026",
+    "title": "Online romance turns into a money or crypto request",
+    "summary": "A new online romantic partner builds trust, then asks for emergency money or steers the victim to a cryptocurrency investment.",
+    "category": "relationship",
+    "channels": [
+      "dating",
+      "social",
+      "messaging",
+      "phone"
+    ],
+    "impersonates": "A romantic partner or investment mentor",
+    "warningSigns": [
+      "Never meets reliably in person",
+      "Asks for secrecy or urgent financial help",
+      "Directs you to an unfamiliar investment platform",
+      "Profits appear but withdrawals fail"
+    ],
+    "actionSteps": [
+      "Stop sending money",
+      "Save messages and transaction records",
+      "Contact the financial institution",
+      "Report to IC3 and the platform"
+    ],
+    "responseScript": "I do not send money or invest for someone I only know online.",
+    "severity": "critical",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2026-02-03",
+    "lastSeen": "2026-02-03",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-27T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "AARP",
+    "sourceUrl": "https://www.aarp.org/press/releases/2026-02-03-Romance-Scams-2026/",
+    "sourcePublishedAt": "2026-02-03T12:00:00Z"
+  },
+  {
+    "slug": "uspis-counterfeit-postage-2025",
+    "title": "Counterfeit discount postage",
+    "summary": "Online sellers offer deeply discounted Forever stamps that are counterfeit and may cause mail to be rejected.",
+    "category": "shopping",
+    "channels": [
+      "web",
+      "social"
+    ],
+    "impersonates": "The U.S. Postal Service or an approved postage seller",
+    "warningSigns": [
+      "Stamps discounted 20 to 50 percent",
+      "Bulk offer from an unknown third-party site",
+      "Seller cannot be verified as an approved provider"
+    ],
+    "actionSteps": [
+      "Buy from USPS or an approved provider",
+      "Avoid deep-discount social ads",
+      "Keep purchase records",
+      "Report counterfeit postage"
+    ],
+    "responseScript": "I will buy postage from USPS or an approved provider.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2025-10-02",
+    "lastSeen": "2025-10-02",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-27T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "United States Postal Inspection Service",
+    "sourceUrl": "https://www.uspis.gov/news/scam-article/counterfeit-postage",
+    "sourcePublishedAt": "2025-10-02T12:00:00Z"
+  },
+  {
+    "slug": "sec-social-text-impersonator-2025",
+    "title": "SEC social-media or text impersonator",
+    "summary": "Fraudsters impersonate SEC staff to push stock tips, demand advance fees, or promise to recover investment losses.",
+    "category": "investment",
+    "channels": [
+      "social",
+      "sms",
+      "messaging"
+    ],
+    "impersonates": "The U.S. Securities and Exchange Commission",
+    "warningSigns": [
+      "Unsolicited investment recommendation from an SEC profile",
+      "Recovery offer requiring a fee",
+      "SEC seal or real employee photo used as proof"
+    ],
+    "actionSteps": [
+      "Do not send money or identity documents",
+      "Verify staff using SEC.gov contact information",
+      "Check investments and professionals independently",
+      "Report the account"
+    ],
+    "responseScript": "The SEC does not endorse investments or charge to recover my money.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2025-09-30",
+    "lastSeen": "2025-09-30",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-27T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "U.S. Securities and Exchange Commission",
+    "sourceUrl": "https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-alerts/sec-impersonators-may-lure-investors-scams-through-social-media-or-text-messages-investor-alert",
+    "sourcePublishedAt": "2025-09-30T12:00:00Z"
   },
   {
     "slug": "fake-store-tariff-delay-2025",
@@ -809,6 +1426,120 @@
     "sourcePublisher": "Federal Trade Commission",
     "sourceUrl": "https://consumer.ftc.gov/consumer-alerts/2025/08/social-media-ad-super-low-prices-well-known-brands-could-be-scam",
     "sourcePublishedAt": "2025-08-26T12:00:00Z"
+  },
+  {
+    "slug": "uspis-check-washing-2025",
+    "title": "Mail check washing",
+    "summary": "Thieves steal mailed checks, erase or replace the payee and amount, and deposit altered or counterfeit versions.",
+    "category": "payment",
+    "channels": [
+      "mail"
+    ],
+    "impersonates": "A legitimate check recipient",
+    "warningSigns": [
+      "A mailed check never reaches the recipient",
+      "Check image shows a changed payee or amount",
+      "Unexpected duplicate or counterfeit check clears"
+    ],
+    "actionSteps": [
+      "Use secure online payment when possible",
+      "Mail checks inside a Post Office near pickup time",
+      "Review bank images promptly",
+      "Report altered checks to the bank and USPIS"
+    ],
+    "responseScript": "I will verify the cleared check image and report alterations immediately.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2025-07-29",
+    "lastSeen": "2025-07-29",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-27T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "United States Postal Inspection Service",
+    "sourceUrl": "https://www.uspis.gov/news/scam-article/check-washing",
+    "sourcePublishedAt": "2025-07-29T12:00:00Z"
+  },
+  {
+    "slug": "ssa-fake-benefit-increase-2025",
+    "title": "Fake Social Security benefit increase",
+    "summary": "Messages promise a benefit increase or COLA activation and lead to fake SSA sites that steal identity and financial information.",
+    "category": "government",
+    "channels": [
+      "phone",
+      "sms",
+      "email",
+      "web"
+    ],
+    "impersonates": "The Social Security Administration",
+    "warningSigns": [
+      "Unexpected offer to activate extra benefits",
+      "Link to a non-SSA website",
+      "Request for payment or banking information"
+    ],
+    "actionSteps": [
+      "Do not click or respond",
+      "Go directly to ssa.gov",
+      "Check your my Social Security account",
+      "Report the message to SSA OIG"
+    ],
+    "responseScript": "Social Security increases do not require payment or an unsolicited helper.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2025-07-17",
+    "lastSeen": "2025-07-17",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-27T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Social Security Administration OIG",
+    "sourceUrl": "https://oig.ssa.gov/scam-alerts/2025-07-17-offers-to-increase-your-social-security-benefit-are-from-criminals/",
+    "sourcePublishedAt": "2025-07-17T12:00:00Z"
+  },
+  {
+    "slug": "ssa-fake-badge-credential-2025",
+    "title": "Government badge or credential photo",
+    "summary": "Impostors send real or doctored badge images to create trust before demanding money or personal information.",
+    "category": "government",
+    "channels": [
+      "email",
+      "sms",
+      "phone",
+      "social"
+    ],
+    "impersonates": "Federal law enforcement or an inspector general",
+    "warningSigns": [
+      "Sends a badge photo as proof",
+      "Threatens action unless you pay",
+      "Claims secrecy is required"
+    ],
+    "actionSteps": [
+      "Stop responding",
+      "Verify through an official agency number",
+      "Do not transfer money",
+      "Preserve and report the messages"
+    ],
+    "responseScript": "A badge photo does not verify a caller. I will contact the agency directly.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2025-07-17",
+    "lastSeen": "2025-07-17",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-27T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Social Security Administration OIG",
+    "sourceUrl": "https://oig.ssa.gov/scam-alerts/2025-07-17-federal-law-enforcement-agencies-warn-of-impersonation-scam-involving-credentials-and-badges/",
+    "sourcePublishedAt": "2025-07-17T12:00:00Z"
   },
   {
     "slug": "uspis-package-smishing-2025",
@@ -922,6 +1653,43 @@
     "sourcePublishedAt": "2025-05-14T12:00:00Z"
   },
   {
+    "slug": "ftc-tech-support-popup-2025",
+    "title": "Urgent computer security pop-up",
+    "summary": "A fake Microsoft, Apple, or security alert tells you to call a number, then sells bogus support or seeks remote access.",
+    "category": "tech-support",
+    "channels": [
+      "web",
+      "phone"
+    ],
+    "impersonates": "A technology or security company",
+    "warningSigns": [
+      "Pop-up says to call immediately",
+      "Caller wants remote computer access",
+      "Payment requested for an invented infection"
+    ],
+    "actionSteps": [
+      "Do not call the pop-up number",
+      "Close the browser or restart the device",
+      "Run trusted security software",
+      "Contact support through the official company site"
+    ],
+    "responseScript": "Real security pop-ups do not tell me to call a phone number.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2025-04-14",
+    "lastSeen": "2025-04-14",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-27T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Federal Trade Commission",
+    "sourceUrl": "https://consumer.ftc.gov/consumer-alerts/2025/04/seemingly-urgent-security-messages-could-lead-tech-support-scams",
+    "sourcePublishedAt": "2025-04-14T12:00:00Z"
+  },
+  {
     "slug": "uspis-brushing-package-2025",
     "title": "Unexpected package brushing scam",
     "summary": "USPIS warns that unsolicited packages may support fake reviews and can include QR codes leading to phishing sites.",
@@ -983,7 +1751,7 @@
       "Contact the impersonated organization",
       "Report USPS-related quishing to spam@uspis.gov"
     ],
-    "responseScript": "I will use the organization\u2019s official app or website instead of this QR code.",
+    "responseScript": "I will use the organization’s official app or website instead of this QR code.",
     "severity": "high",
     "confidence": "authority-confirmed",
     "status": "active",
@@ -1036,5 +1804,120 @@
     "sourcePublisher": "United States Postal Inspection Service",
     "sourceUrl": "https://www.uspis.gov/news/scam-article/vishing",
     "sourcePublishedAt": "2024-06-17T12:00:00Z"
+  },
+  {
+    "slug": "ftc-business-account-problem",
+    "title": "Familiar business account-problem message",
+    "summary": "A message that appears to come from a known company claims an account problem or prize and directs you to a scammer.",
+    "category": "impersonation",
+    "channels": [
+      "email",
+      "sms",
+      "phone",
+      "social"
+    ],
+    "impersonates": "A bank, retailer, delivery company, or subscription service",
+    "warningSigns": [
+      "Unexpected problem or prize",
+      "Link or phone number supplied in the message",
+      "Demand for gift card, crypto, or remote access"
+    ],
+    "actionSteps": [
+      "Do not click or call from the message",
+      "Open the company's app or known website",
+      "Check account activity independently",
+      "Report the impersonation"
+    ],
+    "responseScript": "I will contact the business using information I already trust.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2024-01-01",
+    "lastSeen": "2024-01-01",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-27T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Federal Trade Commission",
+    "sourceUrl": "https://consumer.ftc.gov/features/pass-it-on/impersonator-scams/business-impersonator-scams",
+    "sourcePublishedAt": "2024-01-01T12:00:00Z"
+  },
+  {
+    "slug": "ftc-family-emergency-voice-clone",
+    "title": "Family emergency or grandparent call",
+    "summary": "A caller impersonates a relative in trouble—sometimes with cloned audio—and demands immediate secret payment.",
+    "category": "family",
+    "channels": [
+      "phone",
+      "messaging",
+      "social"
+    ],
+    "impersonates": "A child, grandchild, lawyer, or police officer",
+    "warningSigns": [
+      "Caller demands secrecy",
+      "Emergency cannot be independently confirmed",
+      "Payment requested by courier, wire, gift card, or crypto"
+    ],
+    "actionSteps": [
+      "Hang up",
+      "Call the relative on a known number",
+      "Ask a family verification question",
+      "Contact another family member"
+    ],
+    "responseScript": "I will call my family directly before sending anything.",
+    "severity": "critical",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2023-09-27",
+    "lastSeen": "2023-09-27",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-27T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Federal Trade Commission",
+    "sourceUrl": "https://consumer.ftc.gov/articles/scammers-use-fake-emergencies-steal-your-money",
+    "sourcePublishedAt": "2023-09-27T12:00:00Z"
+  },
+  {
+    "slug": "ftc-fake-check-overpayment",
+    "title": "Fake check and overpayment",
+    "summary": "A stranger sends a check, often for too much, and asks you to return part before the bank discovers the check is fake.",
+    "category": "payment",
+    "channels": [
+      "mail",
+      "email",
+      "messaging"
+    ],
+    "impersonates": "An employer, buyer, prize company, or client",
+    "warningSigns": [
+      "Check exceeds the amount owed",
+      "You must send money, gift cards, or crypto back",
+      "Bank shows funds before the check is finally verified"
+    ],
+    "actionSteps": [
+      "Do not send any money onward",
+      "Contact the issuing bank independently",
+      "Tell your bank about the suspected fake",
+      "Report the sender"
+    ],
+    "responseScript": "Available funds do not prove a check is real.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2022-08-01",
+    "lastSeen": "2022-08-01",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-27T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Federal Trade Commission",
+    "sourceUrl": "https://consumer.ftc.gov/articles/how-spot-avoid-and-report-fake-check-scams",
+    "sourcePublishedAt": "2022-08-01T12:00:00Z"
   }
 ]

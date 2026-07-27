@@ -57,6 +57,8 @@ jobs:
           echo "TABLE_NAME=$TABLE_NAME" >> "$GITHUB_ENV"
           echo "APP_ID=$APP_ID" >> "$GITHUB_ENV"
           echo "SITE_URL=$SITE_URL" >> "$GITHUB_ENV"
+      - name: Validate source-backed catalog
+        run: node aws-hosting/scripts/validate-data.mjs
       - name: Seed verified scam database
         run: node aws-hosting/scripts/seed.mjs
       - name: Build static site bundle
