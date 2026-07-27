@@ -28,16 +28,20 @@ Resources:
             Principal:
               Service: lambda.amazonaws.com
             Action: sts:AssumeRole
-      ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
       Policies:
-        - PolicyName: ReadScoutlineScams
+        - PolicyName: ScoutlineApiRuntime
           PolicyDocument:
             Version: "2012-10-17"
             Statement:
               - Effect: Allow
                 Action: [dynamodb:GetItem, dynamodb:Scan]
                 Resource: !GetAtt ScamTable.Arn
+              - Effect: Allow
+                Action: [logs:CreateLogGroup]
+                Resource: !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:*
+              - Effect: Allow
+                Action: [logs:CreateLogStream, logs:PutLogEvents]
+                Resource: !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/scoutline-public-api:*
 
   ScamApiFunction:
     Type: AWS::Lambda::Function
