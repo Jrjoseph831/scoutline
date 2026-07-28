@@ -116,13 +116,23 @@ Resources:
 
           def links(body, base):
             found = []
+            for entry in re.findall(r"<entry>(.*?)</entry>", body, re.I | re.S):
+              title_match = re.search(r"<title[^>]*>(.*?)</title>", entry, re.I | re.S)
+              link_match = re.search(r'<link[^>]+href=["\']([^"\']+)["\']', entry, re.I)
+              if not title_match or not link_match:
+                continue
+              title = html.unescape(re.sub(r"<[^>]+>", " ", title_match.group(1)))
+              title = re.sub(r"\s+", " ", title).strip()
+              url = urljoin(base, html.unescape(link_match.group(1)))
+              if title and len(title) >= 12 and url.startswith("https://"):
+                found.append((title[:300], url[:1000]))
             for href, raw in re.findall(r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>(.*?)</a>', body, re.I | re.S):
               title = html.unescape(re.sub(r"<[^>]+>", " ", raw))
               title = re.sub(r"\s+", " ", title).strip()
               url = urljoin(base, html.unescape(href))
               if title and len(title) >= 12 and url.startswith("https://") and keywords.search(title + " " + url):
                 found.append((title[:300], url[:1000]))
-            return found[:100]
+            return list(dict.fromkeys(found))[:100]
 
           def tokens(title):
             return {word for word in re.findall(r"[a-z0-9]+", title.lower()) if len(word) >= 4 and word not in stopwords}
