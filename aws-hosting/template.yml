@@ -18,6 +18,154 @@ Resources:
       SSESpecification:
         SSEEnabled: true
 
+  CandidateTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: scoutline-ingestion-candidates
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: candidateId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: candidateId
+          KeyType: HASH
+      TimeToLiveSpecification:
+        AttributeName: expiresAt
+        Enabled: true
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+      SSESpecification:
+        SSEEnabled: true
+
+  IngestionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: ScoutlineIngestionRuntime
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: [dynamodb:PutItem]
+                Resource: !GetAtt CandidateTable.Arn
+              - Effect: Allow
+                Action: [logs:CreateLogGroup]
+                Resource: !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:*
+              - Effect: Allow
+                Action: [logs:CreateLogStream, logs:PutLogEvents]
+                Resource: !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/scoutline-source-ingestion:*
+
+  SourceIngestionFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: scoutline-source-ingestion
+      Runtime: python3.13
+      Handler: index.handler
+      Role: !GetAtt IngestionRole.Arn
+      Timeout: 120
+      MemorySize: 256
+      Environment:
+        Variables:
+          CANDIDATE_TABLE: !Ref CandidateTable
+      Code:
+        ZipFile: |
+          import hashlib, html, json, os, re, time
+          from urllib.parse import urljoin, urlparse
+          from urllib.request import Request, urlopen
+          import boto3
+
+          table = boto3.resource("dynamodb").Table(os.environ["CANDIDATE_TABLE"])
+          official = [
+            ("Federal Trade Commission", "https://consumer.ftc.gov/consumer-alerts", 1),
+            ("FBI Internet Crime Complaint Center", "https://www.ic3.gov/PSA", 1),
+            ("U.S. Postal Inspection Service", "https://www.uspis.gov/news?filters=scam-article", 1),
+            ("Internal Revenue Service", "https://www.irs.gov/newsroom/tax-scams-consumer-alerts", 1),
+            ("Social Security Administration OIG", "https://oig.ssa.gov/scam-alerts/index.html", 1),
+            ("HHS Office of Inspector General", "https://oig.hhs.gov/fraud/consumer-alerts/", 1),
+            ("SEC Investor.gov", "https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-alerts", 1),
+            ("Better Business Bureau", "https://www.bbb.org/all/scamstudies", 2),
+            ("Virginia Attorney General", "https://www.oag.state.va.us/consumer-protection/consumer-alerts", 2),
+            ("New York Attorney General", "https://ag.ny.gov/resources/individuals/consumer-issues/scams", 2),
+            ("California Attorney General", "https://oag.ca.gov/consumers/general/scams", 2),
+          ]
+          community = [
+            ("Community", "https://www.reddit.com/r/Scams/new/.rss", 3),
+          ]
+          keywords = re.compile(r"scam|fraud|phish|impersonat|identity|ransom|extort|decept|theft|fake|counterfeit", re.I)
+
+          def fetch(url):
+            req = Request(url, headers={"User-Agent":"ScoutlineSafetyResearch/1.0 (+https://github.com/Jrjoseph831/scoutline)"})
+            with urlopen(req, timeout=20) as response:
+              return response.read(2000000).decode("utf-8", "replace")
+
+          def links(body, base):
+            found = []
+            for href, raw in re.findall(r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>(.*?)</a>', body, re.I | re.S):
+              title = html.unescape(re.sub(r"<[^>]+>", " ", raw))
+              title = re.sub(r"\s+", " ", title).strip()
+              url = urljoin(base, html.unescape(href))
+              if title and len(title) >= 12 and url.startswith("https://") and keywords.search(title + " " + url):
+                found.append((title[:300], url[:1000]))
+            return found[:100]
+
+          def save(publisher, index_url, tier, source_type, title, url, now):
+            canonical = url.split("#", 1)[0]
+            candidate_id = hashlib.sha256(canonical.encode()).hexdigest()
+            verified = source_type == "official"
+            table.put_item(Item={
+              "candidateId": candidate_id,
+              "title": title,
+              "sourceUrl": canonical,
+              "sourceIndexUrl": index_url,
+              "sourcePublisher": publisher if verified else "Community",
+              "sourceType": source_type,
+              "sourceTier": tier,
+              "verificationState": "official-source-candidate" if verified else "community-reported-unverified",
+              "publicationState": "held-for-enrichment",
+              "publicEligible": False,
+              "firstObservedAt": now,
+              "lastObservedAt": now,
+              "expiresAt": now + (15552000 if verified else 2592000),
+            })
+
+          def handler(event, context):
+            now, saved, failures = int(time.time()), 0, []
+            for publisher, index_url, tier in official + community:
+              source_type = "community" if tier == 3 else "official"
+              try:
+                for title, url in links(fetch(index_url), index_url):
+                  save(publisher, index_url, tier, source_type, title, url, now)
+                  saved += 1
+              except Exception as error:
+                failures.append({"source": publisher, "error": str(error)[:200]})
+            print(json.dumps({"saved": saved, "failures": failures}))
+            return {"saved": saved, "failures": failures}
+
+  IngestionSchedule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: scoutline-source-ingestion-every-six-hours
+      ScheduleExpression: rate(6 hours)
+      State: ENABLED
+      Targets:
+        - Arn: !GetAtt SourceIngestionFunction.Arn
+          Id: ScoutlineSourceIngestion
+
+  IngestionSchedulePermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref SourceIngestionFunction
+      Principal: events.amazonaws.com
+      SourceArn: !GetAtt IngestionSchedule.Arn
+
   ApiRole:
     Type: AWS::IAM::Role
     Properties:
@@ -181,12 +329,20 @@ Resources:
               - amplify:StartDeployment
               - amplify:GetJob
             Resource: !Sub arn:${AWS::Partition}:amplify:${AWS::Region}:${AWS::AccountId}:apps/${AmplifyApp.AppId}*
+          - Sid: RunScoutlineIngestion
+            Effect: Allow
+            Action: lambda:InvokeFunction
+            Resource: !GetAtt SourceIngestionFunction.Arn
 
 Outputs:
   ApiUrl:
     Value: !Sub https://${ScamApi}.execute-api.${AWS::Region}.${AWS::URLSuffix}
   TableName:
     Value: !Ref ScamTable
+  CandidateTableName:
+    Value: !Ref CandidateTable
+  IngestionFunctionName:
+    Value: !Ref SourceIngestionFunction
   AmplifyAppId:
     Value: !GetAtt AmplifyApp.AppId
   SiteUrl:

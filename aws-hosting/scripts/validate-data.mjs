@@ -28,7 +28,7 @@ for (const [index, item] of items.entries()) {
   if (/\b(placeholder|lorem ipsum|example\.com)\b/i.test(JSON.stringify(item))) failures.push(`${label}: placeholder content`);
 }
 
-if (items.length < 50) failures.push(`catalog regression: expected at least 50 guides, found ${items.length}`);
+if (items.length < 75) failures.push(`catalog regression: expected at least 75 guides, found ${items.length}`);
 if (failures.length) {
   console.error(failures.join("\n"));
   process.exit(1);

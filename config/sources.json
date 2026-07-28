@@ -1,11 +1,11 @@
 {
-  "policyVersion": 1,
+  "policyVersion": 2,
   "publicationRules": {
     "tier1": "Eligible for automatic publication only when the item is scam-specific, contains a canonical HTTPS source URL and publication date, and passes schema and duplicate checks.",
     "tier2": "Eligible only when the geography is explicit in the source and the issuing organization is verified.",
     "tier3": "Signal only. Never publish without corroboration from a tier 1 or tier 2 source.",
     "requiredFields": ["title", "summary", "sourceUrl", "publisher", "publishedAt", "contentHash", "scope"],
-    "prohibited": ["anonymous auto-publication", "inferred local geography", "invented report counts", "unsourced trend percentages"]
+    "prohibited": ["anonymous auto-publication", "inferred local geography", "invented report counts", "unsourced trend percentages", "publishing community signals as confirmed"]
   },
   "sources": [
     {"id":"ftc-consumer-alerts","publisher":"Federal Trade Commission","tier":1,"scope":"national","url":"https://consumer.ftc.gov/consumer-alerts","adapter":"html-index","schedule":"rate(6 hours)"},
@@ -19,6 +19,9 @@
     {"id":"cfpb-consumer-advisories","publisher":"Consumer Financial Protection Bureau","tier":1,"scope":"national","url":"https://www.consumerfinance.gov/consumer-tools/fraud/","adapter":"html-index","schedule":"rate(24 hours)"},
     {"id":"va-ag-consumer-alerts","publisher":"Office of the Attorney General of Virginia","tier":2,"scope":"state","state":"VA","url":"https://www.oag.state.va.us/consumer-protection/consumer-alerts","adapter":"html-index","schedule":"rate(12 hours)"},
     {"id":"ny-ag-consumer-alerts","publisher":"Office of the New York State Attorney General","tier":2,"scope":"state","state":"NY","url":"https://ag.ny.gov/resources/individuals/consumer-issues/scams","adapter":"html-index","schedule":"rate(12 hours)"},
-    {"id":"ca-ag-consumer-alerts","publisher":"California Department of Justice","tier":2,"scope":"state","state":"CA","url":"https://oag.ca.gov/consumers/general/scams","adapter":"html-index","schedule":"rate(12 hours)"}
+    {"id":"ca-ag-consumer-alerts","publisher":"California Department of Justice","tier":2,"scope":"state","state":"CA","url":"https://oag.ca.gov/consumers/general/scams","adapter":"html-index","schedule":"rate(12 hours)"},
+    {"id":"bbb-scam-studies","publisher":"Better Business Bureau","tier":2,"scope":"national","url":"https://www.bbb.org/all/scamstudies","adapter":"html-index","schedule":"rate(12 hours)"},
+    {"id":"reddit-scams-new","publisher":"Community","tier":3,"scope":"unverified","url":"https://www.reddit.com/r/Scams/new/.rss","adapter":"rss-signal","schedule":"rate(6 hours)","publicationState":"held-for-enrichment"},
+    {"id":"nextdoor-community-signals","publisher":"Community","tier":3,"scope":"unverified","adapter":"authorized-feed-required","enabled":false,"reason":"Nextdoor has no approved public feed configured; do not scrape authenticated or private neighborhood content."}
   ]
 }

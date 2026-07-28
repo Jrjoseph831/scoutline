@@ -312,6 +312,45 @@
     "sourcePublishedAt": "2026-07-02T12:00:00Z"
   },
   {
+    "slug": "ftc-utility-shutoff-demand-2026",
+    "title": "Utility shutoff payment demand",
+    "summary": "An unexpected caller, message, or visitor pretends to be a gas, electric, or water company and threatens immediate disconnection unless paid.",
+    "category": "utilities",
+    "channels": [
+      "phone",
+      "sms",
+      "email",
+      "in-person"
+    ],
+    "impersonates": "A gas, electric, or water utility",
+    "warningSigns": [
+      "Threat of same-day disconnection",
+      "Payment demanded by gift card, crypto, wire, app, barcode, or QR code",
+      "Caller will not let you verify the bill"
+    ],
+    "actionSteps": [
+      "Hang up or end the visit",
+      "Check the account through a known bill or official app",
+      "Call the utility using a number you already trust",
+      "Report the impersonation"
+    ],
+    "responseScript": "I will check my account and call the utility directly.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2026-06-22",
+    "lastSeen": "2026-06-22",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-28T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Federal Trade Commission",
+    "sourceUrl": "https://consumer.ftc.gov/articles/scammers-pretend-be-your-utility-company",
+    "sourcePublishedAt": "2026-06-22T12:00:00Z"
+  },
+  {
     "slug": "fbi-malicious-redirect-system-2026",
     "title": "Malicious website redirect chain",
     "summary": "The FBI warns that criminal traffic-distribution systems redirect advertisements, compromised sites, or phishing links to fake logins, financial scams, and malware.",
@@ -692,6 +731,44 @@
     "sourcePublishedAt": "2026-06-09T12:00:00Z"
   },
   {
+    "slug": "ftc-party-invitation-login-phishing-2026",
+    "title": "Party invitation steals your email login",
+    "summary": "An unexpected graduation, wedding, or summer-party invitation asks you to enter an email address and password to view it.",
+    "category": "phishing",
+    "channels": [
+      "email",
+      "sms",
+      "web"
+    ],
+    "impersonates": "A friend, relative, or invitation service",
+    "warningSigns": [
+      "Unexpected invitation link",
+      "Page asks for your email password",
+      "Sender cannot confirm the event separately"
+    ],
+    "actionSteps": [
+      "Do not enter credentials",
+      "Contact the supposed host separately",
+      "Change your password if entered",
+      "Review active account sessions"
+    ],
+    "responseScript": "I will confirm the invitation with the host before opening it.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2026-05-26",
+    "lastSeen": "2026-05-26",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-28T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Federal Trade Commission",
+    "sourceUrl": "https://consumer.ftc.gov/consumer-alerts/2026/05/asked-enter-your-email-address-and-password-open-party-invite-thats-scam",
+    "sourcePublishedAt": "2026-05-26T12:00:00Z"
+  },
+  {
     "slug": "fbi-cryptocurrency-kiosk-payment-2026",
     "title": "Cryptocurrency kiosk payment demand",
     "summary": "The FBI warns that scammers direct victims to withdraw cash, scan a supplied QR code, and send cryptocurrency through a kiosk.",
@@ -731,6 +808,46 @@
     "sourcePublisher": "FBI Internet Crime Complaint Center",
     "sourceUrl": "https://www.ic3.gov/PSA/2026/PSA260515-2",
     "sourcePublishedAt": "2026-05-15T12:00:00Z"
+  },
+  {
+    "slug": "ssa-real-name-fake-badge-2026",
+    "title": "Real SSA employee name with a fake badge",
+    "summary": "Criminals pair a real SSA or OIG employee name with a fabricated badge, spoofed number, or fraudulent social profile.",
+    "category": "government",
+    "channels": [
+      "phone",
+      "sms",
+      "email",
+      "social",
+      "mail"
+    ],
+    "impersonates": "A real SSA or OIG employee",
+    "warningSigns": [
+      "Badge image is offered as proof",
+      "Caller knows a real employee name",
+      "Payment requested in gold, cash, crypto, wire, or gift cards"
+    ],
+    "actionSteps": [
+      "Stop communication",
+      "Verify using a number published on ssa.gov",
+      "Do not send money or documents",
+      "Report the profile and contact"
+    ],
+    "responseScript": "A name and badge image are not verification. I will call SSA directly.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2026-04-28",
+    "lastSeen": "2026-04-28",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-28T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Social Security Administration OIG",
+    "sourceUrl": "https://oig.ssa.gov/scam-alerts/2026-04-28-new-wave-of-imposter-scams-criminals-using-real-ssa-employee-names-and-fake-badges/",
+    "sourcePublishedAt": "2026-04-28T12:00:00Z"
   },
   {
     "slug": "social-account-reverification-phishing-2026",
@@ -811,6 +928,44 @@
     "sourcePublisher": "AARP",
     "sourceUrl": "https://www.aarp.org/money/scams-fraud/publishers-clearing-house/",
     "sourcePublishedAt": "2026-03-13T12:00:00Z"
+  },
+  {
+    "slug": "ssa-replacement-card-fee-2026",
+    "title": "Fee for a Social Security replacement card",
+    "summary": "A site, caller, or helper charges for a new or replacement Social Security card even though SSA provides cards free.",
+    "category": "government",
+    "channels": [
+      "web",
+      "phone",
+      "social"
+    ],
+    "impersonates": "The Social Security Administration or an application helper",
+    "warningSigns": [
+      "Fee required for the card",
+      "Site is not on ssa.gov",
+      "Helper asks for identity documents through chat or email"
+    ],
+    "actionSteps": [
+      "Use ssa.gov/number-card",
+      "Do not pay the fee",
+      "Protect documents already shared",
+      "Report the site to SSA OIG"
+    ],
+    "responseScript": "SSA cards are free. I will apply only through ssa.gov.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2026-03-10",
+    "lastSeen": "2026-03-10",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-28T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Social Security Administration OIG",
+    "sourceUrl": "https://oig.ssa.gov/scam-alerts/2026-03-10-ssa-provides-new-and-replacement-social-security-cards-for-free/",
+    "sourcePublishedAt": "2026-03-10T12:00:00Z"
   },
   {
     "slug": "fbi-planning-permit-payment-2026",
@@ -1236,6 +1391,82 @@
     "sourcePublishedAt": "2026-03-05T12:00:00Z"
   },
   {
+    "slug": "ssa-fraudulent-statement-email-2026",
+    "title": "Fraudulent Social Security statement email",
+    "summary": "Official-looking emails claim a Social Security statement is ready and use links or attachments to steal information or install malware.",
+    "category": "government",
+    "channels": [
+      "email",
+      "web"
+    ],
+    "impersonates": "The Social Security Administration",
+    "warningSigns": [
+      "Unsolicited statement attachment",
+      "Sender does not end in .gov",
+      "Urgency to download or sign in"
+    ],
+    "actionSteps": [
+      "Delete the message without clicking",
+      "Type ssa.gov/myaccount yourself",
+      "Change credentials if entered",
+      "Report the email to SSA OIG"
+    ],
+    "responseScript": "I access Social Security statements only by typing ssa.gov myself.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2026-02-20",
+    "lastSeen": "2026-02-20",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-28T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Social Security Administration OIG",
+    "sourceUrl": "https://oig.ssa.gov/scam-alerts/2026-02-20-ssa-office-of-the-inspector-general-warns-public-of-surge-in-fraudulent-social-security-statement-emails/",
+    "sourcePublishedAt": "2026-02-20T12:00:00Z"
+  },
+  {
+    "slug": "ftc-romance-cant-meet-2026",
+    "title": "Online love interest who can never meet",
+    "summary": "An online romantic interest repeatedly avoids meeting, then asks for travel, medical, emergency, gift-card, wire, payment-app, or cryptocurrency money.",
+    "category": "relationship",
+    "channels": [
+      "dating",
+      "social",
+      "messaging",
+      "phone"
+    ],
+    "impersonates": "A romantic partner",
+    "warningSigns": [
+      "Plans to meet are repeatedly cancelled",
+      "Story involves overseas work, military service, or an oil rig",
+      "Money request follows intense daily contact"
+    ],
+    "actionSteps": [
+      "Stop sending money",
+      "Talk to a trusted person",
+      "Reverse-image-search profile photos",
+      "Report the profile and transactions"
+    ],
+    "responseScript": "I do not send money to someone I have not met and verified.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2026-02-09",
+    "lastSeen": "2026-02-09",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-28T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Federal Trade Commission",
+    "sourceUrl": "https://consumer.ftc.gov/consumer-alerts/2026/02/why-cant-new-love-interest-meet-person",
+    "sourcePublishedAt": "2026-02-09T12:00:00Z"
+  },
+  {
     "slug": "uspis-tax-refund-identity-theft-2026",
     "title": "Stolen-identity tax refund",
     "summary": "Criminals use stolen names and Social Security numbers to file tax returns and divert refunds.",
@@ -1312,6 +1543,83 @@
     "sourcePublisher": "AARP",
     "sourceUrl": "https://www.aarp.org/press/releases/2026-02-03-Romance-Scams-2026/",
     "sourcePublishedAt": "2026-02-03T12:00:00Z"
+  },
+  {
+    "slug": "fbi-senior-official-messaging-2025",
+    "title": "Senior government official messaging impersonation",
+    "summary": "A text or AI-generated voice message impersonates a senior official, builds rapport, then moves the conversation to another platform or requests money or documents.",
+    "category": "government",
+    "channels": [
+      "sms",
+      "voice",
+      "messaging",
+      "email"
+    ],
+    "impersonates": "A current or former senior U.S. official",
+    "warningSigns": [
+      "Unexpected outreach from a high-ranking official",
+      "Request to move to an encrypted app",
+      "Wire, documents, or account access requested"
+    ],
+    "actionSteps": [
+      "Do not assume the identity is genuine",
+      "Verify through an established official channel",
+      "Do not open transferred links",
+      "Report the account and message"
+    ],
+    "responseScript": "I will verify this person through an independently known channel.",
+    "severity": "critical",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2025-12-19",
+    "lastSeen": "2025-12-19",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-28T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "FBI Internet Crime Complaint Center",
+    "sourceUrl": "https://www.ic3.gov/PSA/2025/PSA251219",
+    "sourcePublishedAt": "2025-12-19T12:00:00Z"
+  },
+  {
+    "slug": "fbi-virtual-kidnapping-proof-of-life-2025",
+    "title": "Virtual kidnapping with altered proof-of-life media",
+    "summary": "Extortionists use altered photos, video, or cloned audio to claim a loved one was kidnapped and demand immediate ransom.",
+    "category": "family",
+    "channels": [
+      "sms",
+      "phone",
+      "messaging"
+    ],
+    "impersonates": "A kidnapper holding a relative",
+    "warningSigns": [
+      "Threat arrives from an unknown number",
+      "Media contains visual or audio inconsistencies",
+      "Caller prevents you from checking on the person"
+    ],
+    "actionSteps": [
+      "Contact the loved one through another channel",
+      "Ask someone else to verify their safety",
+      "Preserve the message and media",
+      "Contact law enforcement"
+    ],
+    "responseScript": "I am verifying my family member's safety through another channel now.",
+    "severity": "critical",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2025-12-05",
+    "lastSeen": "2025-12-05",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-28T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "FBI Internet Crime Complaint Center",
+    "sourceUrl": "https://www.ic3.gov/PSA/2025/PSA251205",
+    "sourcePublishedAt": "2025-12-05T12:00:00Z"
   },
   {
     "slug": "uspis-counterfeit-postage-2025",
@@ -1428,6 +1736,44 @@
     "sourcePublishedAt": "2025-08-26T12:00:00Z"
   },
   {
+    "slug": "fbi-unsolicited-package-qr-2025",
+    "title": "Unsolicited package with a QR code",
+    "summary": "A package you did not order contains a QR code intended to collect personal or financial information or install malicious software.",
+    "category": "delivery",
+    "channels": [
+      "mail",
+      "qr",
+      "web"
+    ],
+    "impersonates": "A merchant, sender, or product-registration service",
+    "warningSigns": [
+      "Package has no clear sender",
+      "Card urges you to scan for details or returns",
+      "QR destination requests permissions or account information"
+    ],
+    "actionSteps": [
+      "Do not scan the code",
+      "Photograph and retain shipping details",
+      "Check shopping accounts directly",
+      "Report suspicious activity to IC3"
+    ],
+    "responseScript": "I do not scan codes from packages I did not order.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2025-07-31",
+    "lastSeen": "2025-07-31",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-28T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "FBI Internet Crime Complaint Center",
+    "sourceUrl": "https://www.ic3.gov/PSA/2025/PSA250731",
+    "sourcePublishedAt": "2025-07-31T12:00:00Z"
+  },
+  {
     "slug": "uspis-check-washing-2025",
     "title": "Mail check washing",
     "summary": "Thieves steal mailed checks, erase or replace the payee and amount, and deposit altered or counterfeit versions.",
@@ -1542,6 +1888,82 @@
     "sourcePublishedAt": "2025-07-17T12:00:00Z"
   },
   {
+    "slug": "fbi-social-investment-club-ramp-dump-2025",
+    "title": "Social-media investment club ramp-and-dump",
+    "summary": "A fake investment club uses bots, impersonated analysts, and coordinated messages to inflate a low-priced stock before insiders sell.",
+    "category": "investment",
+    "channels": [
+      "social",
+      "messaging",
+      "web"
+    ],
+    "impersonates": "A brokerage, analyst, or investment community",
+    "warningSigns": [
+      "Unsolicited invitation to a private investment group",
+      "Coordinated pressure to buy one low-priced stock",
+      "Guaranteed timing or returns"
+    ],
+    "actionSteps": [
+      "Do not trade on group instructions",
+      "Check the professional and security independently",
+      "Save group messages",
+      "Report suspected manipulation"
+    ],
+    "responseScript": "I do not buy securities based on private social-media groups.",
+    "severity": "critical",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2025-07-03",
+    "lastSeen": "2025-07-03",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-28T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "FBI Internet Crime Complaint Center",
+    "sourceUrl": "https://www.ic3.gov/PSA/2025/PSA250703",
+    "sourcePublishedAt": "2025-07-03T12:00:00Z"
+  },
+  {
+    "slug": "fbi-health-insurer-investigator-2025",
+    "title": "Health insurer fraud-investigator impersonation",
+    "summary": "Messages impersonate health insurers or investigators and pressure patients or providers to disclose medical records, financial data, or reimburse alleged overpayments.",
+    "category": "healthcare",
+    "channels": [
+      "email",
+      "sms",
+      "phone"
+    ],
+    "impersonates": "A health insurer or fraud investigator",
+    "warningSigns": [
+      "Unsolicited request for protected health information",
+      "Link in a reimbursement demand",
+      "Payment requested for an alleged non-covered service"
+    ],
+    "actionSteps": [
+      "Contact the insurer using the card or official portal",
+      "Do not send records through the message",
+      "Preserve the demand",
+      "Report the impersonation to IC3"
+    ],
+    "responseScript": "I will verify this through the number on my insurance card.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2025-06-27",
+    "lastSeen": "2025-06-27",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-28T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "FBI Internet Crime Complaint Center",
+    "sourceUrl": "https://www.ic3.gov/PSA/2025/PSA250627",
+    "sourcePublishedAt": "2025-06-27T12:00:00Z"
+  },
+  {
     "slug": "uspis-package-smishing-2025",
     "title": "USPS package-tracking text",
     "summary": "USPIS warns that unsolicited package texts containing unfamiliar links are smishing attempts designed to steal personal or financial information.",
@@ -1653,6 +2075,81 @@
     "sourcePublishedAt": "2025-05-14T12:00:00Z"
   },
   {
+    "slug": "fbi-student-visa-deportation-threat-2025",
+    "title": "Student visa or deportation payment threat",
+    "summary": "Impostors tell international students they violated visa rules and must pay registration, legal, or processing fees to avoid prosecution or deportation.",
+    "category": "immigration",
+    "channels": [
+      "phone",
+      "email",
+      "messaging"
+    ],
+    "impersonates": "U.S. or foreign government and immigration officials",
+    "warningSigns": [
+      "Threat of immediate deportation",
+      "Payment to an unfamiliar account",
+      "Caller blocks contact with the school or attorney"
+    ],
+    "actionSteps": [
+      "End the call",
+      "Contact the school international office",
+      "Verify with the relevant agency directly",
+      "Report the demand to IC3"
+    ],
+    "responseScript": "I will verify my status with my school and the agency directly.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2025-05-13",
+    "lastSeen": "2025-05-13",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-28T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "FBI Internet Crime Complaint Center",
+    "sourceUrl": "https://www.ic3.gov/PSA/2025/PSA250513",
+    "sourcePublishedAt": "2025-05-13T12:00:00Z"
+  },
+  {
+    "slug": "fbi-employee-self-service-ad-2025",
+    "title": "Fake employee payroll or benefits login",
+    "summary": "Paid search ads lead to cloned employee self-service sites that steal credentials and redirect payroll, unemployment, or health-savings funds.",
+    "category": "workplace",
+    "channels": [
+      "web",
+      "email"
+    ],
+    "impersonates": "An employer payroll, benefits, unemployment, or HSA portal",
+    "warningSigns": [
+      "Login reached through a sponsored result",
+      "Domain differs from the employer portal",
+      "Unexpected MFA prompts or payroll changes"
+    ],
+    "actionSteps": [
+      "Use a saved employer portal link",
+      "Contact payroll or HR immediately",
+      "Reset credentials and sessions",
+      "Review direct-deposit and benefit settings"
+    ],
+    "responseScript": "I will reach payroll and benefits through my employer's known portal.",
+    "severity": "critical",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2025-04-24",
+    "lastSeen": "2025-04-24",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-28T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "FBI Internet Crime Complaint Center",
+    "sourceUrl": "https://www.ic3.gov/PSA/2025/PSA250424",
+    "sourcePublishedAt": "2025-04-24T12:00:00Z"
+  },
+  {
     "slug": "ftc-tech-support-popup-2025",
     "title": "Urgent computer security pop-up",
     "summary": "A fake Microsoft, Apple, or security alert tells you to call a number, then sells bogus support or seeks remote access.",
@@ -1688,6 +2185,44 @@
     "sourcePublisher": "Federal Trade Commission",
     "sourceUrl": "https://consumer.ftc.gov/consumer-alerts/2025/04/seemingly-urgent-security-messages-could-lead-tech-support-scams",
     "sourcePublishedAt": "2025-04-14T12:00:00Z"
+  },
+  {
+    "slug": "ftc-email-phishing-account-update-2025",
+    "title": "Unexpected account-update phishing message",
+    "summary": "An email or text impersonates a bank, utility, or familiar company and asks the recipient to click a link or attachment to fix an account problem.",
+    "category": "phishing",
+    "channels": [
+      "email",
+      "sms",
+      "web"
+    ],
+    "impersonates": "A familiar bank, utility, or company",
+    "warningSigns": [
+      "Unexpected overdue invoice or account warning",
+      "Link domain differs from the company",
+      "Request for Social Security, card, or banking data"
+    ],
+    "actionSteps": [
+      "Do not click or download",
+      "Contact the company through a known channel",
+      "Mark the message as spam",
+      "Enable multifactor authentication"
+    ],
+    "responseScript": "I will open the company's known app instead of this link.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2025-04-08",
+    "lastSeen": "2025-04-08",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-28T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Federal Trade Commission",
+    "sourceUrl": "https://consumer.ftc.gov/consumer-alerts/2025/04/protect-yourself-phishing-scams",
+    "sourcePublishedAt": "2025-04-08T12:00:00Z"
   },
   {
     "slug": "uspis-brushing-package-2025",
@@ -1768,6 +2303,239 @@
     "sourcePublishedAt": "2025-02-20T12:00:00Z"
   },
   {
+    "slug": "fbi-ai-generated-financial-fraud-2024",
+    "title": "AI-generated executive, relative, or investment media",
+    "summary": "Criminals use generated text, cloned voices, and altered images or video to strengthen impersonation, extortion, and investment schemes.",
+    "category": "impersonation",
+    "channels": [
+      "phone",
+      "video",
+      "social",
+      "email",
+      "messaging"
+    ],
+    "impersonates": "An executive, relative, celebrity, or trusted authority",
+    "warningSigns": [
+      "Unusual urgent request despite realistic media",
+      "Voice or video discourages separate verification",
+      "Payment or sensitive action requested"
+    ],
+    "actionSteps": [
+      "Verify through a known separate channel",
+      "Use a family or workplace code word",
+      "Inspect the context, not only the media",
+      "Report the impersonated account"
+    ],
+    "responseScript": "Realistic audio or video is not enough; I will verify separately.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2024-12-03",
+    "lastSeen": "2024-12-03",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-28T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "FBI Internet Crime Complaint Center",
+    "sourceUrl": "https://www.ic3.gov/PSA/2024/PSA241203",
+    "sourcePublishedAt": "2024-12-03T12:00:00Z"
+  },
+  {
+    "slug": "fbi-election-merchandise-contribution-fraud-2024",
+    "title": "Election contribution or merchandise fraud",
+    "summary": "Scammers misuse candidate names and logos to solicit fake donations, sell merchandise that never arrives, steal information, or promote fraudulent campaign investment pools.",
+    "category": "political",
+    "channels": [
+      "email",
+      "sms",
+      "social",
+      "web"
+    ],
+    "impersonates": "A candidate, campaign, political committee, or merchandise seller",
+    "warningSigns": [
+      "Donation link from an unsolicited message",
+      "Promise of returns on campaign contributions",
+      "Store domain cannot be tied to the campaign"
+    ],
+    "actionSteps": [
+      "Navigate to the campaign or committee independently",
+      "Do not treat contributions as investments",
+      "Use a credit card for merchandise",
+      "Report fraudulent sites"
+    ],
+    "responseScript": "I will donate or buy only through a site I verify independently.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2024-10-29",
+    "lastSeen": "2024-10-29",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-28T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "FBI Internet Crime Complaint Center",
+    "sourceUrl": "https://www.ic3.gov/PSA/2024/PSA241029",
+    "sourcePublishedAt": "2024-10-29T12:00:00Z"
+  },
+  {
+    "slug": "fbi-law-firm-debt-counterfeit-check-2024",
+    "title": "Law-firm debt collection counterfeit check",
+    "summary": "A fake client hires a law firm for collection work; the supposed debtor quickly sends a counterfeit cashier's check before funds are wired onward.",
+    "category": "business",
+    "channels": [
+      "email",
+      "mail",
+      "phone"
+    ],
+    "impersonates": "A creditor and debtor in a collection matter",
+    "warningSigns": [
+      "Remote client with little vetting",
+      "Debtor pays unusually quickly",
+      "Request to disburse before final settlement"
+    ],
+    "actionSteps": [
+      "Verify the client and parties independently",
+      "Wait for final bank verification",
+      "Do not wire from provisional funds",
+      "Report the counterfeit instrument"
+    ],
+    "responseScript": "We will not disburse until identity and funds are independently verified.",
+    "severity": "critical",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2024-10-08",
+    "lastSeen": "2024-10-08",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-28T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "FBI Internet Crime Complaint Center",
+    "sourceUrl": "https://www.ic3.gov/PSA/2024/PSA241008",
+    "sourcePublishedAt": "2024-10-08T12:00:00Z"
+  },
+  {
+    "slug": "fbi-crypto-exchange-support-2024",
+    "title": "Cryptocurrency exchange employee impersonation",
+    "summary": "A caller or message claims a crypto account is compromised and steals login information, identification, or funds under the guise of securing it.",
+    "category": "investment",
+    "channels": [
+      "phone",
+      "sms",
+      "email",
+      "messaging"
+    ],
+    "impersonates": "A cryptocurrency exchange employee",
+    "warningSigns": [
+      "Unsolicited urgent account warning",
+      "Request for login credentials or identity documents",
+      "Link supplied instead of the official exchange app"
+    ],
+    "actionSteps": [
+      "End contact",
+      "Open the exchange app or official site yourself",
+      "Change credentials and revoke sessions",
+      "Report unauthorized transfers"
+    ],
+    "responseScript": "I will contact the exchange through its official app.",
+    "severity": "critical",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2024-08-01",
+    "lastSeen": "2024-08-01",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-28T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "FBI Internet Crime Complaint Center",
+    "sourceUrl": "https://www.ic3.gov/PSA/2024/PSA240801",
+    "sourcePublishedAt": "2024-08-01T12:00:00Z"
+  },
+  {
+    "slug": "ftc-utility-barcode-retail-payment-2024",
+    "title": "Utility barcode payment at a retail store",
+    "summary": "A utility impostor sends a barcode and directs the victim to pay at a pharmacy or retailer to prevent shutoff.",
+    "category": "utilities",
+    "channels": [
+      "phone",
+      "sms",
+      "email",
+      "barcode"
+    ],
+    "impersonates": "A utility billing department",
+    "warningSigns": [
+      "Barcode sent by text or email",
+      "Urgent trip to a retailer demanded",
+      "Payment method is not shown on the real utility account"
+    ],
+    "actionSteps": [
+      "Do not scan or pay",
+      "Call the utility using the bill",
+      "Tell the retailer if you were directed there",
+      "Report the caller"
+    ],
+    "responseScript": "I will pay only through the methods shown on my verified utility account.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2024-07-09",
+    "lastSeen": "2024-07-09",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-28T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Federal Trade Commission",
+    "sourceUrl": "https://consumer.ftc.gov/consumer-alerts/2024/07/got-barcode-your-utility-company-make-payment-thats-scam",
+    "sourcePublishedAt": "2024-07-09T12:00:00Z"
+  },
+  {
+    "slug": "fbi-collectible-coin-profit-2024",
+    "title": "Collectible coin profit or appraisal scheme",
+    "summary": "Cold callers promise large profits buying or selling collectible coins, take collections for appraisal, or deliver coins worth far less than claimed.",
+    "category": "investment",
+    "channels": [
+      "phone",
+      "mail",
+      "in-person"
+    ],
+    "impersonates": "A coin dealer, appraiser, or investment buyer",
+    "warningSigns": [
+      "Guaranteed high return on coins",
+      "Pressure to release a collection for appraisal",
+      "Value cannot be independently confirmed"
+    ],
+    "actionSteps": [
+      "Use an independent credentialed appraiser",
+      "Do not surrender coins to a cold caller",
+      "Get terms and inventory in writing",
+      "Report theft or fraud"
+    ],
+    "responseScript": "I will obtain an independent appraisal before any coin transaction.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2024-06-25",
+    "lastSeen": "2024-06-25",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-28T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "FBI Internet Crime Complaint Center",
+    "sourceUrl": "https://www.ic3.gov/PSA/2024/PSA240625",
+    "sourcePublishedAt": "2024-06-25T12:00:00Z"
+  },
+  {
     "slug": "uspis-vishing-phone-call-2024",
     "title": "Postal inspector voice-phishing call",
     "summary": "USPIS warns that callers spoof official numbers, threaten arrest, and impersonate Postal Inspectors to demand money or personal information.",
@@ -1804,6 +2572,158 @@
     "sourcePublisher": "United States Postal Inspection Service",
     "sourceUrl": "https://www.uspis.gov/news/scam-article/vishing",
     "sourcePublishedAt": "2024-06-17T12:00:00Z"
+  },
+  {
+    "slug": "fbi-task-optimization-job-2024",
+    "title": "Task or optimization job requiring crypto",
+    "summary": "A fake work-from-home job pays for simple rating or optimization tasks, then requires cryptocurrency deposits to unlock work or withdraw fake earnings.",
+    "category": "employment",
+    "channels": [
+      "sms",
+      "messaging",
+      "web"
+    ],
+    "impersonates": "A recruiter, staffing firm, or online employer",
+    "warningSigns": [
+      "Unsolicited simple-task job",
+      "Employer requires crypto payments",
+      "Dashboard earnings cannot be withdrawn"
+    ],
+    "actionSteps": [
+      "Stop paying",
+      "Save wallet and message details",
+      "Contact the financial platform",
+      "Report the job to IC3"
+    ],
+    "responseScript": "A legitimate employer pays me; I do not pay it to unlock work.",
+    "severity": "critical",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2024-06-04",
+    "lastSeen": "2024-06-04",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-28T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "FBI Internet Crime Complaint Center",
+    "sourceUrl": "https://www.ic3.gov/PSA/2024/PSA240604",
+    "sourcePublishedAt": "2024-06-04T12:00:00Z"
+  },
+  {
+    "slug": "fbi-dating-verification-subscription-2024",
+    "title": "Dating safety-verification subscription",
+    "summary": "A dating contact sends a supposedly free verification site that captures card and identity details and enrolls the user in recurring charges.",
+    "category": "relationship",
+    "channels": [
+      "dating",
+      "messaging",
+      "web"
+    ],
+    "impersonates": "A dating safety or identity-verification service",
+    "warningSigns": [
+      "New match quickly moves off-platform",
+      "Verification requires a credit card",
+      "Fine print mentions recurring fees"
+    ],
+    "actionSteps": [
+      "Do not use the supplied site",
+      "Report the profile to the dating platform",
+      "Dispute unauthorized charges",
+      "Replace exposed card credentials"
+    ],
+    "responseScript": "I will not enter payment details into a verification site sent by a match.",
+    "severity": "high",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2024-04-26",
+    "lastSeen": "2024-04-26",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-28T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "FBI Internet Crime Complaint Center",
+    "sourceUrl": "https://www.ic3.gov/PSA/2024/PSA240426",
+    "sourcePublishedAt": "2024-04-26T12:00:00Z"
+  },
+  {
+    "slug": "ftc-bank-fraud-protect-money-2024",
+    "title": "Bank fraud alert says to move your money",
+    "summary": "A bank or government impostor claims an account is under attack and directs the victim to transfer savings to a supposedly safe account.",
+    "category": "financial-impersonation",
+    "channels": [
+      "phone",
+      "sms",
+      "email"
+    ],
+    "impersonates": "A bank fraud department, broker, or government agency",
+    "warningSigns": [
+      "Instruction to transfer money for protection",
+      "Request for a verification code",
+      "Caller tells you to hide the reason from bank staff"
+    ],
+    "actionSteps": [
+      "Do not move funds",
+      "Call the number on the bank card or statement",
+      "Lock affected accounts",
+      "Tell the bank and FTC immediately"
+    ],
+    "responseScript": "I will call my bank directly. I will not move money on an incoming call.",
+    "severity": "critical",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2024-03-05",
+    "lastSeen": "2024-03-05",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-28T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "Federal Trade Commission",
+    "sourceUrl": "https://consumer.ftc.gov/consumer-alerts/2024/03/never-move-your-money-protect-it-thats-scam",
+    "sourcePublishedAt": "2024-03-05T12:00:00Z"
+  },
+  {
+    "slug": "fbi-gold-cash-safekeeping-courier-2024",
+    "title": "Gold or cash safekeeping courier",
+    "summary": "Tech-support and government impostors tell victims to liquidate savings into cash or precious metals and hand them to a courier for protection.",
+    "category": "financial-impersonation",
+    "channels": [
+      "phone",
+      "web",
+      "in-person"
+    ],
+    "impersonates": "Tech support, a bank, or a government agency",
+    "warningSigns": [
+      "Instruction to buy gold or withdraw cash",
+      "Courier arranged to visit your home",
+      "Demand to conceal the reason from bank staff"
+    ],
+    "actionSteps": [
+      "Do not meet the courier",
+      "Call the real bank immediately",
+      "Contact law enforcement",
+      "Preserve phone numbers and receipts"
+    ],
+    "responseScript": "No legitimate agency sends a courier to protect my cash or gold.",
+    "severity": "critical",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2024-01-29",
+    "lastSeen": "2024-01-29",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-28T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "FBI Internet Crime Complaint Center",
+    "sourceUrl": "https://www.ic3.gov/PSA/2024/PSA240129",
+    "sourcePublishedAt": "2024-01-29T12:00:00Z"
   },
   {
     "slug": "ftc-business-account-problem",
@@ -1919,5 +2839,44 @@
     "sourcePublisher": "Federal Trade Commission",
     "sourceUrl": "https://consumer.ftc.gov/articles/how-spot-avoid-and-report-fake-check-scams",
     "sourcePublishedAt": "2022-08-01T12:00:00Z"
+  },
+  {
+    "slug": "fbi-crypto-atm-qr-payment-2021",
+    "title": "Cryptocurrency ATM QR-code payment",
+    "summary": "An impostor directs the victim to a cryptocurrency ATM and supplies a QR code that sends purchased crypto directly to the scammer.",
+    "category": "payment",
+    "channels": [
+      "phone",
+      "sms",
+      "qr",
+      "in-person"
+    ],
+    "impersonates": "Government, law enforcement, a utility, lottery, or romantic partner",
+    "warningSigns": [
+      "Instruction to stay on the phone at an ATM",
+      "QR code supplied for the destination wallet",
+      "Payment framed as a fine, protection step, or prize fee"
+    ],
+    "actionSteps": [
+      "Do not deposit cash",
+      "Leave the ATM",
+      "Contact the claimed organization independently",
+      "Report wallet and transaction details"
+    ],
+    "responseScript": "I do not pay unexpected demands through a cryptocurrency ATM.",
+    "severity": "critical",
+    "confidence": "authority-confirmed",
+    "status": "active",
+    "firstSeen": "2021-11-04",
+    "lastSeen": "2021-11-04",
+    "sourceCount": 1,
+    "lastVerifiedAt": "2026-07-28T12:00:00Z",
+    "scope": "national",
+    "state": null,
+    "city": null,
+    "postalCode": null,
+    "sourcePublisher": "FBI Internet Crime Complaint Center",
+    "sourceUrl": "https://www.ic3.gov/PSA/2021/PSA211104",
+    "sourcePublishedAt": "2021-11-04T12:00:00Z"
   }
 ]

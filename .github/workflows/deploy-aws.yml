@@ -53,14 +53,24 @@ jobs:
           TABLE_NAME=$(aws cloudformation describe-stacks --stack-name scoutline-production --region us-east-1 --query "Stacks[0].Outputs[?OutputKey=='TableName'].OutputValue" --output text)
           APP_ID=$(aws cloudformation describe-stacks --stack-name scoutline-production --region us-east-1 --query "Stacks[0].Outputs[?OutputKey=='AmplifyAppId'].OutputValue" --output text)
           SITE_URL=$(aws cloudformation describe-stacks --stack-name scoutline-production --region us-east-1 --query "Stacks[0].Outputs[?OutputKey=='SiteUrl'].OutputValue" --output text)
+          INGESTION_FUNCTION=$(aws cloudformation describe-stacks --stack-name scoutline-production --region us-east-1 --query "Stacks[0].Outputs[?OutputKey=='IngestionFunctionName'].OutputValue" --output text)
           echo "API_URL=$API_URL" >> "$GITHUB_ENV"
           echo "TABLE_NAME=$TABLE_NAME" >> "$GITHUB_ENV"
           echo "APP_ID=$APP_ID" >> "$GITHUB_ENV"
           echo "SITE_URL=$SITE_URL" >> "$GITHUB_ENV"
+          echo "INGESTION_FUNCTION=$INGESTION_FUNCTION" >> "$GITHUB_ENV"
       - name: Validate source-backed catalog
         run: node aws-hosting/scripts/validate-data.mjs
       - name: Seed verified scam database
         run: node aws-hosting/scripts/seed.mjs
+      - name: Run source ingestion
+        run: |
+          aws lambda invoke \
+            --function-name "$INGESTION_FUNCTION" \
+            --region us-east-1 \
+            --cli-binary-format raw-in-base64-out \
+            aws-hosting/ingestion-result.json
+          cat aws-hosting/ingestion-result.json
       - name: Build static site bundle
         run: |
           cp -R aws-hosting/site aws-hosting/build

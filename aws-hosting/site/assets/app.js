@@ -18,8 +18,20 @@ function renderHome(items) {
 function renderLibrary(items) {
   const grid = document.querySelector("#library-grid");
   if (!grid) return;
+  const categorySelect = document.querySelector("#category");
+  if (categorySelect && !categorySelect.dataset.ready) {
+    const known = new Set([...categorySelect.options].map((option) => option.value));
+    [...new Set(items.map((item) => item.category))].sort().forEach((value) => {
+      if (known.has(value)) return;
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = value.split("-").map((word) => word[0].toUpperCase() + word.slice(1)).join(" ");
+      categorySelect.append(option);
+    });
+    categorySelect.dataset.ready = "true";
+  }
   const query = (document.querySelector("#search")?.value || "").toLowerCase();
-  const category = document.querySelector("#category")?.value || "all";
+  const category = categorySelect?.value || "all";
   const filtered = items.filter((item) => {
     const haystack = `${item.title} ${item.summary} ${item.category} ${item.impersonates || ""}`.toLowerCase();
     return (!query || haystack.includes(query)) && (category === "all" || item.category === category);
