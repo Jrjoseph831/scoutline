@@ -107,6 +107,7 @@ Resources:
             ("Community", "https://www.reddit.com/r/Scams/new/.rss", 3),
           ]
           keywords = re.compile(r"scam|fraud|phish|impersonat|identity|ransom|extort|decept|theft|fake|counterfeit", re.I)
+          stopwords = {"this","that","with","from","have","been","they","what","when","where","your","scam","scams","fraud","warning","alert"}
 
           def fetch(url):
             req = Request(url, headers={"User-Agent":"ScoutlineSafetyResearch/1.0 (+https://github.com/Jrjoseph831/scoutline)"})
@@ -123,11 +124,27 @@ Resources:
                 found.append((title[:300], url[:1000]))
             return found[:100]
 
-          def save(publisher, index_url, tier, source_type, title, url, now):
+          def tokens(title):
+            return {word for word in re.findall(r"[a-z0-9]+", title.lower()) if len(word) >= 4 and word not in stopwords}
+
+          def official_match(title, official_items):
+            community_tokens = tokens(title)
+            best, best_score, shared = None, 0, 0
+            for item in official_items:
+              official_tokens = tokens(item["title"])
+              overlap = len(community_tokens & official_tokens)
+              union = len(community_tokens | official_tokens) or 1
+              score = overlap / union
+              if overlap >= 3 and score > best_score:
+                best, best_score, shared = item, score, overlap
+            return (best, best_score) if best and best_score >= 0.45 and shared >= 3 else (None, 0)
+
+          def save(publisher, index_url, tier, source_type, title, url, now, official_items):
             canonical = url.split("#", 1)[0]
             candidate_id = hashlib.sha256(canonical.encode()).hexdigest()
             verified = source_type == "official"
-            table.put_item(Item={
+            match, match_score = official_match(title, official_items) if not verified else (None, 0)
+            candidate = {
               "candidateId": candidate_id,
               "title": title,
               "sourceUrl": canonical,
@@ -135,26 +152,36 @@ Resources:
               "sourcePublisher": publisher if verified else "Community",
               "sourceType": source_type,
               "sourceTier": tier,
-              "verificationState": "official-source-candidate" if verified else "community-reported-unverified",
-              "publicationState": "held-for-enrichment",
+              "verificationState": "official-source-candidate" if verified else ("corroborated-by-official" if match else "community-reported-unverified"),
+              "publicationState": "held-for-enrichment" if verified else "published",
               "publicEligible": not verified,
               "firstObservedAt": now,
               "lastObservedAt": now,
               "expiresAt": now + (15552000 if verified else 2592000),
-            })
+            }
+            if match:
+              candidate.update({
+                "resolutionMethod": "conservative-title-token-match",
+                "resolutionScore": str(round(match_score, 3)),
+                "resolvedSourcePublisher": match["publisher"],
+                "resolvedSourceUrl": match["url"],
+                "resolvedAt": now
+              })
+            table.put_item(Item=candidate)
             if not verified:
               day = datetime.fromtimestamp(now, timezone.utc).strftime("%Y-%m-%d")
+              corroborated = bool(match)
               scams.put_item(Item={
                 "slug": "community-" + candidate_id[:20],
                 "title": title,
-                "summary": "Community members are reporting this possible scam pattern. It has not yet been corroborated by an established source.",
+                "summary": ("A community-reported pattern matches an alert from " + match["publisher"] + ". Review the official source before acting.") if corroborated else "Community members are reporting this possible scam pattern. It has not yet been corroborated by an established source.",
                 "category": "community-report",
                 "channels": ["community"],
-                "impersonates": "Unverified",
+                "impersonates": "See the matched official alert" if corroborated else "Unverified",
                 "warningSigns": [
-                  "This report has not been independently confirmed",
-                  "Details may be incomplete, mistaken, or change quickly"
-                ],
+                  "The pattern was first observed through a community report",
+                  "Confirm that your situation matches the official alert"
+                ] if corroborated else ["This report has not been independently confirmed", "Details may be incomplete, mistaken, or change quickly"],
                 "actionSteps": [
                   "Do not send money or personal information",
                   "Search the confirmed guides for a matching pattern",
@@ -162,33 +189,41 @@ Resources:
                 ],
                 "responseScript": "I am going to verify this independently before responding.",
                 "severity": "medium",
-                "confidence": "community-reported-unverified",
-                "status": "unverified",
+                "confidence": "corroborated" if corroborated else "community-reported-unverified",
+                "status": "active" if corroborated else "unverified",
                 "firstSeen": day,
                 "lastSeen": day,
-                "sourceCount": 1,
+                "sourceCount": 2 if corroborated else 1,
                 "lastVerifiedAt": datetime.fromtimestamp(now, timezone.utc).isoformat(),
                 "scope": "national",
                 "state": None,
                 "city": None,
                 "postalCode": None,
-                "sourcePublisher": "Community",
+                "sourcePublisher": match["publisher"] if corroborated else "Community",
+                "sourceUrl": match["url"] if corroborated else "",
                 "sourcePublishedAt": datetime.fromtimestamp(now, timezone.utc).isoformat(),
                 "expiresAt": now + 2592000
               })
 
           def handler(event, context):
-            now, saved, failures = int(time.time()), 0, []
-            for publisher, index_url, tier in official + community:
-              source_type = "community" if tier == 3 else "official"
+            now, saved, failures, official_items = int(time.time()), 0, [], []
+            for publisher, index_url, tier in official:
               try:
                 for title, url in links(fetch(index_url), index_url):
-                  save(publisher, index_url, tier, source_type, title, url, now)
+                  official_items.append({"title": title, "url": url, "publisher": publisher})
+                  save(publisher, index_url, tier, "official", title, url, now, official_items)
                   saved += 1
               except Exception as error:
                 failures.append({"source": publisher, "error": str(error)[:200]})
-            print(json.dumps({"saved": saved, "failures": failures}))
-            return {"saved": saved, "failures": failures}
+            for publisher, index_url, tier in community:
+              try:
+                for title, url in links(fetch(index_url), index_url):
+                  save(publisher, index_url, tier, "community", title, url, now, official_items)
+                  saved += 1
+              except Exception as error:
+                failures.append({"source": publisher, "error": str(error)[:200]})
+            print(json.dumps({"saved": saved, "officialCandidates": len(official_items), "failures": failures}))
+            return {"saved": saved, "officialCandidates": len(official_items), "failures": failures}
 
   IngestionSchedule:
     Type: AWS::Events::Rule
