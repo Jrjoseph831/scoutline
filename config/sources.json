@@ -3,9 +3,9 @@
   "publicationRules": {
     "tier1": "Eligible for automatic publication only when the item is scam-specific, contains a canonical HTTPS source URL and publication date, and passes schema and duplicate checks.",
     "tier2": "Eligible only when the geography is explicit in the source and the issuing organization is verified.",
-    "tier3": "Signal only. Never publish without corroboration from a tier 1 or tier 2 source.",
+    "tier3": "May appear publicly only as a clearly labeled community-reported, unverified signal. It must never be represented as confirmed and must not expose the originating community URL.",
     "requiredFields": ["title", "summary", "sourceUrl", "publisher", "publishedAt", "contentHash", "scope"],
-    "prohibited": ["anonymous auto-publication", "inferred local geography", "invented report counts", "unsourced trend percentages", "publishing community signals as confirmed"]
+    "prohibited": ["anonymous auto-publication as confirmed", "inferred local geography", "invented report counts", "unsourced trend percentages", "publishing community signals as confirmed", "displaying private or community-origin URLs as authoritative sources"]
   },
   "sources": [
     {"id":"ftc-consumer-alerts","publisher":"Federal Trade Commission","tier":1,"scope":"national","url":"https://consumer.ftc.gov/consumer-alerts","adapter":"html-index","schedule":"rate(6 hours)"},

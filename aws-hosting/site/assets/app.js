@@ -1,6 +1,8 @@
 const state = { items: [], selected: null, material: "poster" };
 const escapeHtml = (value = "") => String(value).replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[character]);
-const sourceLine = (item) => `<small>Source: <a href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noreferrer">${escapeHtml(item.sourcePublisher)}</a> · ${escapeHtml(item.sourceCount)} evidence source${item.sourceCount === 1 ? "" : "s"}</small>`;
+const sourceLine = (item) => item.confidence === "community-reported-unverified"
+  ? `<small class="community-source">Source: Community · Unverified report</small>`
+  : `<small>Source: <a href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noreferrer">${escapeHtml(item.sourcePublisher)}</a> · ${escapeHtml(item.sourceCount)} evidence source${item.sourceCount === 1 ? "" : "s"}</small>`;
 
 async function getScams() {
   const config = await fetch("/config.json").then((response) => response.json());
@@ -37,7 +39,7 @@ function renderLibrary(items) {
     return (!query || haystack.includes(query)) && (category === "all" || item.category === category);
   });
   document.querySelector("#result-count").textContent = `${filtered.length} source-backed guides`;
-  grid.innerHTML = filtered.map((item) => `<button class="guide-card library-card" data-slug="${escapeHtml(item.slug)}"><span>${escapeHtml(item.category)}</span><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.summary)}</p>${sourceLine(item)}<b>Open guide →</b></button>`).join("");
+  grid.innerHTML = filtered.map((item) => `<button class="guide-card library-card" data-slug="${escapeHtml(item.slug)}"><span>${escapeHtml(item.status === "unverified" ? "Community report · unverified" : item.category)}</span><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.summary)}</p>${sourceLine(item)}<b>Open guide →</b></button>`).join("");
   grid.querySelectorAll("[data-slug]").forEach((button) => button.addEventListener("click", () => openDetail(button.dataset.slug)));
 }
 
@@ -45,7 +47,8 @@ function openDetail(slug) {
   const item = state.items.find((candidate) => candidate.slug === slug);
   const modal = document.querySelector("#detail");
   if (!item || !modal) return;
-  modal.innerHTML = `<div class="modal-card"><button class="modal-close" aria-label="Close">×</button><span class="eyebrow">${escapeHtml(item.category)}</span><h2>${escapeHtml(item.title)}</h2><p class="lead">${escapeHtml(item.summary)}</p><div class="detail-columns"><section><h3>Warning signs</h3><ul>${item.warningSigns.map((sign) => `<li>${escapeHtml(sign)}</li>`).join("")}</ul></section><section><h3>What to do</h3><ol>${item.actionSteps.map((step) => `<li>${escapeHtml(step)}</li>`).join("")}</ol></section></div><blockquote>“${escapeHtml(item.responseScript || "I will verify this independently before responding.")}”</blockquote>${sourceLine(item)}<div class="modal-actions"><a class="button secondary" href="/toolkit/?scam=${encodeURIComponent(item.slug)}">Create safety kit</a><a class="button" href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noreferrer">Original source</a></div></div>`;
+  const sourceButton = item.confidence === "community-reported-unverified" ? "" : `<a class="button" href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noreferrer">Original source</a>`;
+  modal.innerHTML = `<div class="modal-card"><button class="modal-close" aria-label="Close">×</button><span class="eyebrow">${escapeHtml(item.status === "unverified" ? "Community report · unverified" : item.category)}</span><h2>${escapeHtml(item.title)}</h2><p class="lead">${escapeHtml(item.summary)}</p><div class="detail-columns"><section><h3>Warning signs</h3><ul>${item.warningSigns.map((sign) => `<li>${escapeHtml(sign)}</li>`).join("")}</ul></section><section><h3>What to do</h3><ol>${item.actionSteps.map((step) => `<li>${escapeHtml(step)}</li>`).join("")}</ol></section></div><blockquote>“${escapeHtml(item.responseScript || "I will verify this independently before responding.")}”</blockquote>${sourceLine(item)}<div class="modal-actions"><a class="button secondary" href="/toolkit/?scam=${encodeURIComponent(item.slug)}">Create safety kit</a>${sourceButton}</div></div>`;
   modal.hidden = false;
   modal.querySelector(".modal-close").addEventListener("click", () => { modal.hidden = true; });
 }

@@ -13,6 +13,9 @@ Resources:
       KeySchema:
         - AttributeName: slug
           KeyType: HASH
+      TimeToLiveSpecification:
+        AttributeName: expiresAt
+        Enabled: true
       PointInTimeRecoverySpecification:
         PointInTimeRecoveryEnabled: true
       SSESpecification:
@@ -54,7 +57,9 @@ Resources:
             Statement:
               - Effect: Allow
                 Action: [dynamodb:PutItem]
-                Resource: !GetAtt CandidateTable.Arn
+                Resource:
+                  - !GetAtt CandidateTable.Arn
+                  - !GetAtt ScamTable.Arn
               - Effect: Allow
                 Action: [logs:CreateLogGroup]
                 Resource: !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:*
@@ -74,14 +79,17 @@ Resources:
       Environment:
         Variables:
           CANDIDATE_TABLE: !Ref CandidateTable
+          SCAM_TABLE: !Ref ScamTable
       Code:
         ZipFile: |
           import hashlib, html, json, os, re, time
+          from datetime import datetime, timezone
           from urllib.parse import urljoin, urlparse
           from urllib.request import Request, urlopen
           import boto3
 
           table = boto3.resource("dynamodb").Table(os.environ["CANDIDATE_TABLE"])
+          scams = boto3.resource("dynamodb").Table(os.environ["SCAM_TABLE"])
           official = [
             ("Federal Trade Commission", "https://consumer.ftc.gov/consumer-alerts", 1),
             ("FBI Internet Crime Complaint Center", "https://www.ic3.gov/PSA", 1),
@@ -129,11 +137,45 @@ Resources:
               "sourceTier": tier,
               "verificationState": "official-source-candidate" if verified else "community-reported-unverified",
               "publicationState": "held-for-enrichment",
-              "publicEligible": False,
+              "publicEligible": not verified,
               "firstObservedAt": now,
               "lastObservedAt": now,
               "expiresAt": now + (15552000 if verified else 2592000),
             })
+            if not verified:
+              day = datetime.fromtimestamp(now, timezone.utc).strftime("%Y-%m-%d")
+              scams.put_item(Item={
+                "slug": "community-" + candidate_id[:20],
+                "title": title,
+                "summary": "Community members are reporting this possible scam pattern. It has not yet been corroborated by an established source.",
+                "category": "community-report",
+                "channels": ["community"],
+                "impersonates": "Unverified",
+                "warningSigns": [
+                  "This report has not been independently confirmed",
+                  "Details may be incomplete, mistaken, or change quickly"
+                ],
+                "actionSteps": [
+                  "Do not send money or personal information",
+                  "Search the confirmed guides for a matching pattern",
+                  "Verify any claimed organization through a contact method you already trust"
+                ],
+                "responseScript": "I am going to verify this independently before responding.",
+                "severity": "medium",
+                "confidence": "community-reported-unverified",
+                "status": "unverified",
+                "firstSeen": day,
+                "lastSeen": day,
+                "sourceCount": 1,
+                "lastVerifiedAt": datetime.fromtimestamp(now, timezone.utc).isoformat(),
+                "scope": "national",
+                "state": None,
+                "city": None,
+                "postalCode": None,
+                "sourcePublisher": "Community",
+                "sourcePublishedAt": datetime.fromtimestamp(now, timezone.utc).isoformat(),
+                "expiresAt": now + 2592000
+              })
 
           def handler(event, context):
             now, saved, failures = int(time.time()), 0, []
