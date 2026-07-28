@@ -56,7 +56,7 @@ Resources:
             Version: "2012-10-17"
             Statement:
               - Effect: Allow
-                Action: [dynamodb:PutItem]
+                Action: [dynamodb:PutItem, dynamodb:GetItem]
                 Resource:
                   - !GetAtt CandidateTable.Arn
                   - !GetAtt ScamTable.Arn
@@ -119,20 +119,71 @@ Resources:
             for entry in re.findall(r"<entry>(.*?)</entry>", body, re.I | re.S):
               title_match = re.search(r"<title[^>]*>(.*?)</title>", entry, re.I | re.S)
               link_match = re.search(r'<link[^>]+href=["\']([^"\']+)["\']', entry, re.I)
+              content_match = re.search(r"<content[^>]*>(.*?)</content>", entry, re.I | re.S)
               if not title_match or not link_match:
                 continue
               title = html.unescape(re.sub(r"<[^>]+>", " ", title_match.group(1)))
               title = re.sub(r"\s+", " ", title).strip()
               url = urljoin(base, html.unescape(link_match.group(1)))
+              content = html.unescape(content_match.group(1)) if content_match else ""
+              content = html.unescape(re.sub(r"<[^>]+>", " ", content))
+              content = re.sub(r"\s+", " ", content).strip()[:4000]
               if title and len(title) >= 12 and url.startswith("https://"):
-                found.append((title[:300], url[:1000]))
+                found.append((title[:300], url[:1000], content))
             for href, raw in re.findall(r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>(.*?)</a>', body, re.I | re.S):
               title = html.unescape(re.sub(r"<[^>]+>", " ", raw))
               title = re.sub(r"\s+", " ", title).strip()
               url = urljoin(base, html.unescape(href))
               if title and len(title) >= 12 and url.startswith("https://") and keywords.search(title + " " + url):
-                found.append((title[:300], url[:1000]))
-            return list(dict.fromkeys(found))[:100]
+                found.append((title[:300], url[:1000], ""))
+            unique = {}
+            for item in found:
+              unique[item[1]] = item
+            return list(unique.values())[:100]
+
+          def community_profile(raw_title, body):
+            text = (raw_title + " " + body).lower()
+            profiles = [
+              ("employment", ("job","hiring","recruiter","employment","work from home"), "Possible job or recruiter impersonation", "A community report describes a job or recruiter interaction that may be intended to collect money, identity documents, or banking information.", "An employer or recruiter", ["email","sms","messaging"]),
+              ("relationship", ("romance","dating","boyfriend","girlfriend","love interest"), "Possible online relationship scam", "A community report describes an online relationship that may be shifting toward requests for money, investment, or personal information.", "A romantic interest", ["dating","social","messaging"]),
+              ("phishing", ("phishing","verification code","login","password","calendly","google meet"), "Possible account-access phishing attempt", "A community report describes a message or page that may be attempting to capture login credentials or a verification code.", "A familiar service or contact", ["email","sms","web"]),
+              ("shopping", ("purchase","seller","marketplace","mercari","item","store","website","equipment"), "Possible online seller or storefront scam", "A community report describes a seller, storefront, or purchase that may involve impersonation, non-delivery, or stolen payment information.", "A seller, marketplace user, or online store", ["web","social","messaging"]),
+              ("financial-impersonation", ("bank","credit card","payee","account","zelle","cashapp"), "Possible bank or payment-account takeover", "A community report describes unusual banking or payment activity that may indicate unauthorized account access or payment redirection.", "A bank, payment service, or account holder", ["phone","sms","web"]),
+              ("property", ("rental","landlord","tenant","property","contractor","concrete"), "Possible property, rental, or contractor scam", "A community report describes a property, rental, or contractor interaction with identity, payment, or documentation inconsistencies.", "A landlord, tenant, property owner, or contractor", ["email","sms","in-person"]),
+              ("tech-support", ("computer","virus","support","remote access","captcha"), "Possible technology-support or device scam", "A community report describes a technical warning or support interaction that may seek device access, credentials, or payment.", "A technology or support provider", ["web","phone"]),
+              ("investment", ("crypto","investment","trading","profit","coin"), "Possible investment or cryptocurrency scheme", "A community report describes an investment opportunity or platform that may use false returns, pressure, or blocked withdrawals.", "An investment adviser, club, or platform", ["social","messaging","web"]),
+              ("government", ("government","irs","social security","police","court","immigration"), "Possible government impersonation", "A community report describes contact from someone claiming government authority and seeking payment, information, or immediate action.", "A government agency or official", ["phone","sms","email"]),
+              ("delivery", ("package","delivery","usps","ups","fedex","shipping"), "Possible delivery or package scam", "A community report describes a delivery or package message that may be designed to collect payment or personal information.", "A delivery company or seller", ["sms","email","web"]),
+            ]
+            profile = next((p for p in profiles if any(term in text for term in p[1])), None)
+            if not profile:
+              profile = ("community-report", (), "Possible impersonation or payment scam", "A community report describes unexpected contact or activity that may be intended to obtain money, account access, or personal information.", "An unverified person or business", ["community"])
+            category, _, title, summary, impersonates, channels = profile
+            warnings = []
+            signals = [
+              (("urgent","immediately","right now","today"), "Pressure to act before there is time to verify"),
+              (("gift card","bitcoin","crypto","wire transfer","zelle","cashapp"), "Payment requested through a hard-to-reverse method"),
+              (("password","login","verification code","one-time code","otp"), "Request for a password, login, or verification code"),
+              (("passport","social security","national insurance","bank details","credit card"), "Request for sensitive identity or financial information"),
+              (("whatsapp","telegram","signal","off platform","instagram"), "Conversation moved away from the original platform"),
+              (("link","website","domain","qr code"), "Unfamiliar link, website, domain, or QR code"),
+              (("upfront","deposit","application fee","advance fee"), "Money requested before the promised service, job, or item"),
+              (("too good","cheap","discount","guaranteed","profit"), "Offer or return appears unusually favorable or guaranteed"),
+              (("blocked","stopped responding","never arrived","didn't exist","fake company"), "The person, item, office, or business cannot be independently verified"),
+            ]
+            for terms, warning in signals:
+              if any(term in text for term in terms) and warning not in warnings:
+                warnings.append(warning)
+            warnings.extend([w for w in ["Unexpected contact that cannot be independently verified", "Details or identities that do not remain consistent"] if w not in warnings])
+            return {
+              "title": title,
+              "summary": summary,
+              "category": category,
+              "impersonates": impersonates,
+              "channels": channels,
+              "warningSigns": warnings[:4],
+              "actionSteps": ["Pause contact and do not send money or information", "Verify the person or organization through a channel you already trust", "Preserve messages, payment details, and screenshots", "Report confirmed fraud to the relevant platform and authorities"]
+            }
 
           def tokens(title):
             return {word for word in re.findall(r"[a-z0-9]+", title.lower()) if len(word) >= 4 and word not in stopwords}
@@ -149,14 +200,18 @@ Resources:
                 best, best_score, shared = item, score, overlap
             return (best, best_score) if best and best_score >= 0.45 and shared >= 3 else (None, 0)
 
-          def save(publisher, index_url, tier, source_type, title, url, now, official_items):
+          def save(publisher, index_url, tier, source_type, title, url, body, now, official_items):
             canonical = url.split("#", 1)[0]
             candidate_id = hashlib.sha256(canonical.encode()).hexdigest()
             verified = source_type == "official"
+            existing = table.get_item(Key={"candidateId": candidate_id}).get("Item")
+            if not verified and existing and existing.get("publicationState") == "rejected":
+              return
             match, match_score = official_match(title, official_items) if not verified else (None, 0)
             candidate = {
               "candidateId": candidate_id,
               "title": title,
+              "reportedText": body[:4000] if not verified else "",
               "sourceUrl": canonical,
               "sourceIndexUrl": index_url,
               "sourcePublisher": publisher if verified else "Community",
@@ -181,22 +236,16 @@ Resources:
             if not verified:
               day = datetime.fromtimestamp(now, timezone.utc).strftime("%Y-%m-%d")
               corroborated = bool(match)
+              profile = community_profile(title, body)
               scams.put_item(Item={
                 "slug": "community-" + candidate_id[:20],
-                "title": title,
-                "summary": ("A community-reported pattern matches an alert from " + match["publisher"] + ". Review the official source before acting.") if corroborated else "Community members are reporting this possible scam pattern. It has not yet been corroborated by an established source.",
-                "category": "community-report",
-                "channels": ["community"],
-                "impersonates": "See the matched official alert" if corroborated else "Unverified",
-                "warningSigns": [
-                  "The pattern was first observed through a community report",
-                  "Confirm that your situation matches the official alert"
-                ] if corroborated else ["This report has not been independently confirmed", "Details may be incomplete, mistaken, or change quickly"],
-                "actionSteps": [
-                  "Do not send money or personal information",
-                  "Search the confirmed guides for a matching pattern",
-                  "Verify any claimed organization through a contact method you already trust"
-                ],
+                "title": profile["title"],
+                "summary": ("This community-reported pattern matches an alert from " + match["publisher"] + ". " + profile["summary"]) if corroborated else profile["summary"],
+                "category": profile["category"],
+                "channels": profile["channels"],
+                "impersonates": profile["impersonates"],
+                "warningSigns": profile["warningSigns"],
+                "actionSteps": profile["actionSteps"],
                 "responseScript": "I am going to verify this independently before responding.",
                 "severity": "medium",
                 "confidence": "corroborated" if corroborated else "community-reported-unverified",
@@ -211,6 +260,7 @@ Resources:
                 "postalCode": None,
                 "sourcePublisher": match["publisher"] if corroborated else "Community",
                 "sourceUrl": match["url"] if corroborated else "",
+                "reportOrigin": "community",
                 "sourcePublishedAt": datetime.fromtimestamp(now, timezone.utc).isoformat(),
                 "expiresAt": now + 2592000
               })
@@ -219,16 +269,16 @@ Resources:
             now, saved, failures, official_items = int(time.time()), 0, [], []
             for publisher, index_url, tier in official:
               try:
-                for title, url in links(fetch(index_url), index_url):
+                for title, url, body in links(fetch(index_url), index_url):
                   official_items.append({"title": title, "url": url, "publisher": publisher})
-                  save(publisher, index_url, tier, "official", title, url, now, official_items)
+                  save(publisher, index_url, tier, "official", title, url, body, now, official_items)
                   saved += 1
               except Exception as error:
                 failures.append({"source": publisher, "error": str(error)[:200]})
             for publisher, index_url, tier in community:
               try:
-                for title, url in links(fetch(index_url), index_url):
-                  save(publisher, index_url, tier, "community", title, url, now, official_items)
+                for title, url, body in links(fetch(index_url), index_url):
+                  save(publisher, index_url, tier, "community", title, url, body, now, official_items)
                   saved += 1
               except Exception as error:
                 failures.append({"source": publisher, "error": str(error)[:200]})
@@ -252,6 +302,179 @@ Resources:
       FunctionName: !Ref SourceIngestionFunction
       Principal: events.amazonaws.com
       SourceArn: !GetAtt IngestionSchedule.Arn
+
+  AdminUserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      UserPoolName: scoutline-admins
+      UsernameAttributes: [email]
+      AutoVerifiedAttributes: [email]
+      AdminCreateUserConfig:
+        AllowAdminCreateUserOnly: true
+      Policies:
+        PasswordPolicy:
+          MinimumLength: 12
+          RequireLowercase: true
+          RequireUppercase: true
+          RequireNumbers: true
+          RequireSymbols: true
+
+  AdminUserPoolDomain:
+    Type: AWS::Cognito::UserPoolDomain
+    Properties:
+      Domain: !Sub scoutline-admin-${AWS::AccountId}
+      UserPoolId: !Ref AdminUserPool
+
+  AdminUserPoolClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      UserPoolId: !Ref AdminUserPool
+      ClientName: scoutline-admin-web
+      GenerateSecret: false
+      SupportedIdentityProviders: [COGNITO]
+      AllowedOAuthFlowsUserPoolClient: true
+      AllowedOAuthFlows: [code]
+      AllowedOAuthScopes: [openid, email]
+      CallbackURLs:
+        - !Sub https://main.${AmplifyApp.DefaultDomain}/admin/
+      LogoutURLs:
+        - !Sub https://main.${AmplifyApp.DefaultDomain}/admin/
+      AccessTokenValidity: 60
+      IdTokenValidity: 60
+      TokenValidityUnits:
+        AccessToken: minutes
+        IdToken: minutes
+
+  AdminGroup:
+    Type: AWS::Cognito::UserPoolGroup
+    Properties:
+      GroupName: admins
+      Description: Scoutline moderation administrators
+      UserPoolId: !Ref AdminUserPool
+
+  ModerationRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: ScoutlineModerationRuntime
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: [dynamodb:PutItem, dynamodb:GetItem, dynamodb:UpdateItem, dynamodb:DeleteItem, dynamodb:Scan]
+                Resource:
+                  - !GetAtt CandidateTable.Arn
+                  - !GetAtt ScamTable.Arn
+              - Effect: Allow
+                Action: [logs:CreateLogGroup]
+                Resource: !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:*
+              - Effect: Allow
+                Action: [logs:CreateLogStream, logs:PutLogEvents]
+                Resource: !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/scoutline-moderation:*
+
+  ModerationFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: scoutline-moderation
+      Runtime: nodejs22.x
+      Handler: index.handler
+      Role: !GetAtt ModerationRole.Arn
+      Timeout: 15
+      MemorySize: 256
+      Environment:
+        Variables:
+          CANDIDATE_TABLE: !Ref CandidateTable
+          SCAM_TABLE: !Ref ScamTable
+      Code:
+        ZipFile: |
+          const crypto = require("node:crypto");
+          const { DynamoDBClient, PutItemCommand, GetItemCommand, UpdateItemCommand, DeleteItemCommand, ScanCommand } = require("@aws-sdk/client-dynamodb");
+          const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb");
+          const db = new DynamoDBClient({});
+          const candidates = process.env.CANDIDATE_TABLE;
+          const scams = process.env.SCAM_TABLE;
+          const reply = (statusCode, body) => ({ statusCode, headers: { "content-type": "application/json", "access-control-allow-origin": "*", "access-control-allow-headers": "content-type,authorization", "access-control-allow-methods": "GET,POST,PATCH,OPTIONS", "cache-control": "no-store" }, body: JSON.stringify(body) });
+          const list = (value, max = 5) => String(value || "").split(/\r?\n/).map((x) => x.replace(/^[-*\d.)\s]+/, "").trim()).filter(Boolean).slice(0, max);
+          const clean = (value, max) => String(value || "").replace(/\s+/g, " ").trim().slice(0, max);
+          const isAdmin = (event) => String(event.requestContext?.authorizer?.jwt?.claims?.["cognito:groups"] || "").includes("admins");
+          exports.handler = async (event) => {
+            const method = event.requestContext?.http?.method || "";
+            const path = event.rawPath || "";
+            if (method === "OPTIONS") return reply(204, {});
+            if (method === "POST" && path === "/reports") {
+              const body = JSON.parse(event.body || "{}");
+              if (body.website) return reply(202, { accepted: true });
+              const title = clean(body.title, 120);
+              const summary = clean(body.summary, 900);
+              const warningSigns = list(body.warningSigns);
+              const actionSteps = list(body.actionSteps);
+              if (title.length < 8 || summary.length < 40 || warningSigns.length < 2 || actionSteps.length < 1) return reply(400, { error: "Please provide a clear title, description, at least two warning signs, and one protective step." });
+              const now = Math.floor(Date.now() / 1000);
+              const candidateId = crypto.randomUUID();
+              const item = {
+                candidateId, sourceType: "manual-community", sourceTier: 3, sourcePublisher: "Community",
+                verificationState: "community-reported-unverified", publicationState: "pending-moderation",
+                publicEligible: false, title, summary, category: clean(body.category, 50) || "community-report",
+                channels: list(body.channels, 6), impersonates: clean(body.impersonates, 160) || "An unverified person or organization",
+                warningSigns, actionSteps, location: { city: clean(body.city, 80), state: clean(body.state, 40), postalCode: clean(body.postalCode, 12) },
+                submittedAt: now, firstObservedAt: now, lastObservedAt: now, expiresAt: now + 7776000
+              };
+              await db.send(new PutItemCommand({ TableName: candidates, Item: marshall(item, { removeUndefinedValues: true }) }));
+              return reply(202, { accepted: true, reportId: candidateId, status: "pending-moderation" });
+            }
+            if (!isAdmin(event)) return reply(403, { error: "Admin access required" });
+            if (method === "GET" && path === "/admin/reports") {
+              const result = await db.send(new ScanCommand({ TableName: candidates }));
+              const items = (result.Items || []).map(unmarshall).filter((x) => ["manual-community","community"].includes(x.sourceType)).sort((a,b) => Number(b.submittedAt || b.lastObservedAt) - Number(a.submittedAt || a.lastObservedAt));
+              return reply(200, { items });
+            }
+            if (method === "PATCH" && path.startsWith("/admin/reports/")) {
+              const candidateId = event.pathParameters?.id;
+              const action = JSON.parse(event.body || "{}").action;
+              const found = await db.send(new GetItemCommand({ TableName: candidates, Key: { candidateId: { S: candidateId } } }));
+              if (!found.Item) return reply(404, { error: "Report not found" });
+              const item = unmarshall(found.Item);
+              const now = Math.floor(Date.now() / 1000);
+              if (action === "reject") {
+                await db.send(new UpdateItemCommand({ TableName: candidates, Key: { candidateId: { S: candidateId } }, UpdateExpression: "SET publicationState=:s, moderatedAt=:t", ExpressionAttributeValues: { ":s": { S: "rejected" }, ":t": { N: String(now) } } }));
+                await Promise.all([
+                  db.send(new DeleteItemCommand({ TableName: scams, Key: { slug: { S: "community-" + candidateId.slice(0, 20) } } })),
+                  db.send(new DeleteItemCommand({ TableName: scams, Key: { slug: { S: "community-submission-" + candidateId } } }))
+                ]);
+                return reply(200, { status: "rejected" });
+              }
+              if (action !== "approve") return reply(400, { error: "Action must be approve or reject" });
+              if (item.sourceType === "community") {
+                await db.send(new UpdateItemCommand({ TableName: candidates, Key: { candidateId: { S: candidateId } }, UpdateExpression: "SET moderationState=:s, moderatedAt=:t", ExpressionAttributeValues: { ":s": { S: "approved" }, ":t": { N: String(now) } } }));
+                return reply(200, { status: "approved" });
+              }
+              const slug = "community-submission-" + candidateId;
+              const published = {
+                slug, title: item.title, summary: item.summary, category: item.category || "community-report",
+                channels: item.channels?.length ? item.channels : ["community"], impersonates: item.impersonates,
+                warningSigns: item.warningSigns, actionSteps: item.actionSteps,
+                responseScript: "I am going to verify this independently before responding.",
+                severity: "medium", confidence: "community-reported-unverified", status: "unverified",
+                firstSeen: new Date((item.submittedAt || now) * 1000).toISOString().slice(0,10),
+                lastSeen: new Date(now * 1000).toISOString().slice(0,10), sourceCount: 1,
+                lastVerifiedAt: new Date(now * 1000).toISOString(), scope: item.location?.postalCode ? "local" : "national",
+                state: item.location?.state || null, city: item.location?.city || null, postalCode: item.location?.postalCode || null,
+                sourcePublisher: "Community", sourceUrl: "", sourcePublishedAt: new Date(now * 1000).toISOString(),
+                reportOrigin: "community", expiresAt: now + 2592000
+              };
+              await db.send(new PutItemCommand({ TableName: scams, Item: marshall(published, { removeUndefinedValues: true }) }));
+              await db.send(new UpdateItemCommand({ TableName: candidates, Key: { candidateId: { S: candidateId } }, UpdateExpression: "SET publicationState=:s, moderatedAt=:t, publicSlug=:p", ExpressionAttributeValues: { ":s": { S: "published" }, ":t": { N: String(now) }, ":p": { S: slug } } }));
+              return reply(200, { status: "published", slug });
+            }
+            return reply(404, { error: "Not found" });
+          };
 
   ApiRole:
     Type: AWS::IAM::Role
@@ -335,8 +558,8 @@ Resources:
       ProtocolType: HTTP
       CorsConfiguration:
         AllowOrigins: ["*"]
-        AllowMethods: [GET, OPTIONS]
-        AllowHeaders: [content-type]
+        AllowMethods: [GET, POST, PATCH, OPTIONS]
+        AllowHeaders: [content-type, authorization]
 
   ApiIntegration:
     Type: AWS::ApiGatewayV2::Integration
@@ -360,6 +583,50 @@ Resources:
       RouteKey: GET /scams/{slug}
       Target: !Sub integrations/${ApiIntegration}
 
+  ModerationIntegration:
+    Type: AWS::ApiGatewayV2::Integration
+    Properties:
+      ApiId: !Ref ScamApi
+      IntegrationType: AWS_PROXY
+      IntegrationUri: !GetAtt ModerationFunction.Arn
+      PayloadFormatVersion: "2.0"
+
+  AdminAuthorizer:
+    Type: AWS::ApiGatewayV2::Authorizer
+    Properties:
+      ApiId: !Ref ScamApi
+      Name: scoutline-admin-cognito
+      AuthorizerType: JWT
+      IdentitySource: ["$request.header.Authorization"]
+      JwtConfiguration:
+        Audience: [!Ref AdminUserPoolClient]
+        Issuer: !Sub https://cognito-idp.${AWS::Region}.${AWS::URLSuffix}/${AdminUserPool}
+
+  SubmitReportRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref ScamApi
+      RouteKey: POST /reports
+      Target: !Sub integrations/${ModerationIntegration}
+
+  AdminReportsRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref ScamApi
+      RouteKey: GET /admin/reports
+      AuthorizationType: JWT
+      AuthorizerId: !Ref AdminAuthorizer
+      Target: !Sub integrations/${ModerationIntegration}
+
+  AdminReportActionRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref ScamApi
+      RouteKey: PATCH /admin/reports/{id}
+      AuthorizationType: JWT
+      AuthorizerId: !Ref AdminAuthorizer
+      Target: !Sub integrations/${ModerationIntegration}
+
   ApiStage:
     Type: AWS::ApiGatewayV2::Stage
     Properties:
@@ -375,6 +642,14 @@ Resources:
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub arn:${AWS::Partition}:execute-api:${AWS::Region}:${AWS::AccountId}:${ScamApi}/*
 
+  ModerationApiPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref ModerationFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub arn:${AWS::Partition}:execute-api:${AWS::Region}:${AWS::AccountId}:${ScamApi}/*
+
   AmplifyApp:
     Type: AWS::Amplify::App
     Properties:
@@ -387,6 +662,8 @@ Resources:
         - { Source: /how-it-works, Target: /how-it-works/index.html, Status: "200" }
         - { Source: /organizations, Target: /organizations/index.html, Status: "200" }
         - { Source: /support, Target: /support/index.html, Status: "200" }
+        - { Source: /report, Target: /report/index.html, Status: "200" }
+        - { Source: /admin, Target: /admin/index.html, Status: "200" }
 
   AmplifyBranch:
     Type: AWS::Amplify::Branch
@@ -430,6 +707,12 @@ Outputs:
     Value: !Ref CandidateTable
   IngestionFunctionName:
     Value: !Ref SourceIngestionFunction
+  AdminUserPoolId:
+    Value: !Ref AdminUserPool
+  AdminUserPoolClientId:
+    Value: !Ref AdminUserPoolClient
+  AdminHostedUiDomain:
+    Value: !Sub https://${AdminUserPoolDomain}.auth.${AWS::Region}.amazoncognito.com
   AmplifyAppId:
     Value: !GetAtt AmplifyApp.AppId
   SiteUrl:

@@ -54,11 +54,15 @@ jobs:
           APP_ID=$(aws cloudformation describe-stacks --stack-name scoutline-production --region us-east-1 --query "Stacks[0].Outputs[?OutputKey=='AmplifyAppId'].OutputValue" --output text)
           SITE_URL=$(aws cloudformation describe-stacks --stack-name scoutline-production --region us-east-1 --query "Stacks[0].Outputs[?OutputKey=='SiteUrl'].OutputValue" --output text)
           INGESTION_FUNCTION=$(aws cloudformation describe-stacks --stack-name scoutline-production --region us-east-1 --query "Stacks[0].Outputs[?OutputKey=='IngestionFunctionName'].OutputValue" --output text)
+          ADMIN_CLIENT_ID=$(aws cloudformation describe-stacks --stack-name scoutline-production --region us-east-1 --query "Stacks[0].Outputs[?OutputKey=='AdminUserPoolClientId'].OutputValue" --output text)
+          ADMIN_AUTH_DOMAIN=$(aws cloudformation describe-stacks --stack-name scoutline-production --region us-east-1 --query "Stacks[0].Outputs[?OutputKey=='AdminHostedUiDomain'].OutputValue" --output text)
           echo "API_URL=$API_URL" >> "$GITHUB_ENV"
           echo "TABLE_NAME=$TABLE_NAME" >> "$GITHUB_ENV"
           echo "APP_ID=$APP_ID" >> "$GITHUB_ENV"
           echo "SITE_URL=$SITE_URL" >> "$GITHUB_ENV"
           echo "INGESTION_FUNCTION=$INGESTION_FUNCTION" >> "$GITHUB_ENV"
+          echo "ADMIN_CLIENT_ID=$ADMIN_CLIENT_ID" >> "$GITHUB_ENV"
+          echo "ADMIN_AUTH_DOMAIN=$ADMIN_AUTH_DOMAIN" >> "$GITHUB_ENV"
       - name: Validate source-backed catalog
         run: node aws-hosting/scripts/validate-data.mjs
       - name: Seed verified scam database
@@ -74,7 +78,12 @@ jobs:
       - name: Build static site bundle
         run: |
           cp -R aws-hosting/site aws-hosting/build
-          printf '{"apiUrl":"%s"}\n' "$API_URL" > aws-hosting/build/config.json
+          jq -n \
+            --arg apiUrl "$API_URL" \
+            --arg adminClientId "$ADMIN_CLIENT_ID" \
+            --arg adminAuthDomain "$ADMIN_AUTH_DOMAIN" \
+            '{apiUrl:$apiUrl,adminClientId:$adminClientId,adminAuthDomain:$adminAuthDomain}' \
+            > aws-hosting/build/config.json
           cd aws-hosting/build
           zip -qr ../site.zip .
       - name: Publish to Amplify

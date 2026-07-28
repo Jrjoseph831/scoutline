@@ -14,7 +14,7 @@ async function getScams() {
 function renderHome(items) {
   const target = document.querySelector("#recent-guides");
   if (!target) return;
-  target.innerHTML = items.slice(0, 3).map((item) => `<article class="guide-card"><span>${escapeHtml(item.status)}</span><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.summary)}</p>${sourceLine(item)}<a href="/library/?scam=${encodeURIComponent(item.slug)}">Read the guide →</a></article>`).join("");
+  target.innerHTML = items.filter((item) => item.confidence !== "community-reported-unverified").slice(0, 3).map((item) => `<article class="guide-card"><span>${escapeHtml(item.status)}</span><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.summary)}</p>${sourceLine(item)}<a href="/library/?scam=${encodeURIComponent(item.slug)}">Read the guide →</a></article>`).join("");
 }
 
 function renderLibrary(items) {
@@ -39,7 +39,7 @@ function renderLibrary(items) {
     return (!query || haystack.includes(query)) && (category === "all" || item.category === category);
   });
   document.querySelector("#result-count").textContent = `${filtered.length} source-backed guides`;
-  grid.innerHTML = filtered.map((item) => `<button class="guide-card library-card" data-slug="${escapeHtml(item.slug)}"><span>${escapeHtml(item.status === "unverified" ? "Community report · unverified" : item.category === "community-report" ? "Community report · corroborated" : item.category)}</span><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.summary)}</p>${sourceLine(item)}<b>Open guide →</b></button>`).join("");
+  grid.innerHTML = filtered.map((item) => `<button class="guide-card library-card" data-slug="${escapeHtml(item.slug)}"><span>${escapeHtml(item.status === "unverified" ? "Community report · unverified" : item.reportOrigin === "community" ? "Community report · corroborated" : item.category)}</span><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.summary)}</p>${sourceLine(item)}<b>Open guide →</b></button>`).join("");
   grid.querySelectorAll("[data-slug]").forEach((button) => button.addEventListener("click", () => openDetail(button.dataset.slug)));
 }
 
@@ -48,7 +48,7 @@ function openDetail(slug) {
   const modal = document.querySelector("#detail");
   if (!item || !modal) return;
   const sourceButton = item.confidence === "community-reported-unverified" ? "" : `<a class="button" href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noreferrer">Original source</a>`;
-  modal.innerHTML = `<div class="modal-card"><button class="modal-close" aria-label="Close">×</button><span class="eyebrow">${escapeHtml(item.status === "unverified" ? "Community report · unverified" : item.category === "community-report" ? "Community report · corroborated" : item.category)}</span><h2>${escapeHtml(item.title)}</h2><p class="lead">${escapeHtml(item.summary)}</p><div class="detail-columns"><section><h3>Warning signs</h3><ul>${item.warningSigns.map((sign) => `<li>${escapeHtml(sign)}</li>`).join("")}</ul></section><section><h3>What to do</h3><ol>${item.actionSteps.map((step) => `<li>${escapeHtml(step)}</li>`).join("")}</ol></section></div><blockquote>“${escapeHtml(item.responseScript || "I will verify this independently before responding.")}”</blockquote>${sourceLine(item)}<div class="modal-actions"><a class="button secondary" href="/toolkit/?scam=${encodeURIComponent(item.slug)}">Create safety kit</a>${sourceButton}</div></div>`;
+  modal.innerHTML = `<div class="modal-card"><button class="modal-close" aria-label="Close">×</button><span class="eyebrow">${escapeHtml(item.status === "unverified" ? "Community report · unverified" : item.reportOrigin === "community" ? "Community report · corroborated" : item.category)}</span><h2>${escapeHtml(item.title)}</h2><p class="lead">${escapeHtml(item.summary)}</p><div class="detail-columns"><section><h3>Warning signs</h3><ul>${item.warningSigns.map((sign) => `<li>${escapeHtml(sign)}</li>`).join("")}</ul></section><section><h3>What to do</h3><ol>${item.actionSteps.map((step) => `<li>${escapeHtml(step)}</li>`).join("")}</ol></section></div><blockquote>“${escapeHtml(item.responseScript || "I will verify this independently before responding.")}”</blockquote>${sourceLine(item)}<div class="modal-actions"><a class="button secondary" href="/toolkit/?scam=${encodeURIComponent(item.slug)}">Create safety kit</a>${sourceButton}</div></div>`;
   modal.hidden = false;
   modal.querySelector(".modal-close").addEventListener("click", () => { modal.hidden = true; });
 }
